@@ -38,6 +38,12 @@ public class WaitingList<E>  {
         }
     }
 
+    public void addToFront(E element) {
+        Node<E> node = new Node<>(element);
+        node.setTail(head);
+        head = node;
+    }
+
     public void remove() {
         head = head.getTail();
     }
