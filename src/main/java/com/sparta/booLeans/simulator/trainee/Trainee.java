@@ -3,6 +3,9 @@ package com.sparta.booLeans.simulator.trainee;
 public class Trainee implements TraineeInterface {
 
     private int traineeId;
+    private boolean isTraining;
+    private int monthCreated;
+    private int startTrainingMonth;
 
 @Override
     public void setTraineeId(int traineeId) {
@@ -40,9 +43,5 @@ public class Trainee implements TraineeInterface {
     public void setStartTrainingMonth(int startTrainingMonth) {
         this.startTrainingMonth = startTrainingMonth;
     }
-
-    private boolean isTraining;
-    private int monthCreated;
-    private int startTrainingMonth;
 
 }
