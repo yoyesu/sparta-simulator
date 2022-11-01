@@ -3,18 +3,16 @@ package com.sparta.booLeans.simulator.trainee;
 public interface TraineeInterface {
 
     void setTraineeId(int traineeId);
-    int getTraineeId(int traineeId);
+    int getTraineeId();
 
-    void setMonthCreated();
-    int getMonthCreated();
+    void setMonthCreated(int monthCreated);
+    public int getMonthCreated();
 
-    void setIsTraining();
-    int getStartTrainingMonth();
+    public void setStartTrainingMonth(int startTrainingMonth);
+    public int getStartTrainingMonth();
 
-    boolean isTraining(boolean isTraining);
-    void setIsWaiting();
-
-    boolean isWaiting(boolean isWaiting);
+    public boolean isTraining();
+    public void setTraining(boolean isTraining);
 
     //Method for how long the trainee is waiting before training?
 
