@@ -20,16 +20,26 @@ public class TrainingCentre {
     }
 
     // Getters
-    public int  getCapacity()      {return capacity;}
+    public int getCapacity() throws CapacityExceededException  {
+
+        CapacityExceededException exc = new CapacityExceededException();
+        if(capacity > 100) throw exc;
+        return capacity;
+    }
     public int  getCentreID()      {return centreID;}
     public Date getDateCreated()   {return dateCreated;}
     public int  getMonthlyIntake() {return monthlyIntake;}
 
     // Setters
-    public void setCapacity(int capacity)           {this.capacity = capacity;}
-    public void setCentreID(int centreID)           {this.centreID = centreID;}
-    public void setDateCreated(Date dateCreated)    {this.dateCreated = dateCreated;}
-    public void setMonthlyIntake(int monthlyIntake) {this.monthlyIntake = monthlyIntake;}
+    public void setCapacity (int capacity) throws CapacityExceededException {
+
+        CapacityExceededException exc = new CapacityExceededException();
+        if(capacity > 100) throw exc;
+        this.capacity = capacity;
+    }
+    public void setCentreID      (int centreID)      {this.centreID = centreID;}
+    public void setDateCreated   (Date dateCreated)  {this.dateCreated = dateCreated;}
+    public void setMonthlyIntake (int monthlyIntake) {this.monthlyIntake = monthlyIntake;}
 
     // Methods
     public boolean isFull() {
