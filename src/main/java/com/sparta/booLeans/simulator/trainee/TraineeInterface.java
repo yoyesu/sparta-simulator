@@ -2,13 +2,17 @@ package com.sparta.booLeans.simulator.trainee;
 
 public interface TraineeInterface {
 
-    int getTraineeID();
+    void setTraineeId(int traineeId);
+    int getTraineeId(int traineeId);
 
-    String getDateCreated();
+    void setMonthCreated();
+    int getMonthCreated();
 
-    String getStartTrainingDate();
+    void setIsTraining();
+    int getStartTrainingMonth();
 
     boolean isTraining(boolean isTraining);
+    void setIsWaiting();
 
     boolean isWaiting(boolean isWaiting);
 

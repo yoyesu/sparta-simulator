@@ -2,25 +2,41 @@ package com.sparta.booLeans.simulator.trainee;
 
 public class Trainee implements TraineeInterface {
 
-    private int TraineeID;
-    private boolean isTraining = true;
-    private boolean isWaiting = true;
-    private String dateCreated;
-    private String startTrainingDate;
+    private int traineeID;
+    private boolean isTraining;
+    private boolean isWaiting;
+    private int monthCreated;
+    private int startTrainingMonth;
+
 
     @Override
-    public int getTraineeID() {
-        return TraineeID;
+    public void setTraineeId(int traineeId) {
+        this.traineeID=traineeId;
     }
 
     @Override
-    public String getDateCreated() {
-        return dateCreated;
+    public int getTraineeId(int traineeId) {
+        return traineeID;
     }
 
     @Override
-    public String getStartTrainingDate() {
-        return startTrainingDate;
+    public void setMonthCreated() {
+        this.monthCreated=monthCreated;
+    }
+
+    @Override
+    public int getMonthCreated() {
+        return monthCreated;
+    }
+
+    @Override
+    public void setIsTraining() {
+        this.isTraining=isTraining;
+    }
+
+    @Override
+    public int getStartTrainingMonth() {
+        return startTrainingMonth;
     }
 
     @Override
@@ -30,8 +46,12 @@ public class Trainee implements TraineeInterface {
     }
 
     @Override
-    public boolean isWaiting(boolean isWaiting) {
+    public void setIsWaiting() {
         this.isWaiting = isWaiting;
+    }
+
+    @Override
+    public boolean isWaiting(boolean isWaiting) {
         return isWaiting;
     }
 

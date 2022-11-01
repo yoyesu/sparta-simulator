@@ -1,5 +1,6 @@
-package com.sparta.booLeans.simulator;
+package com.sparta.booLeans.simulator.trainingCentre;
 
+import com.sparta.booLeans.simulator.trainee.Trainee;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -10,7 +11,7 @@ public class TrainingCentre {
     private int centreID;
     private Date dateCreated;
     private int monthlyIntake;
-    public ArrayList <Integer> currentTrainees;
+    public ArrayList <Trainee> currentTrainees;
 
     // Constructor
     public TrainingCentre() {
@@ -20,7 +21,7 @@ public class TrainingCentre {
     }
 
     // Getters
-    public int getCapacity() throws CapacityExceededException  {
+    public int  getCapacity() throws CapacityExceededException  {
 
         CapacityExceededException exc = new CapacityExceededException();
         if(capacity > 100) throw exc;
