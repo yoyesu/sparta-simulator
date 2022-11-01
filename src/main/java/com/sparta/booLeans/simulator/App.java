@@ -1,4 +1,4 @@
-package com.sparta.boo-leans.simulator;
+package com.sparta.booLeans.simulator;
 
 /**
  * Hello world!
