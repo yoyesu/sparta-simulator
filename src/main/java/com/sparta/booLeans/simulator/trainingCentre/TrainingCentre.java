@@ -2,49 +2,60 @@ package com.sparta.booLeans.simulator.trainingCentre;
 
 import com.sparta.booLeans.simulator.trainee.Trainee;
 import java.util.ArrayList;
-import java.util.Date;
 
 public class TrainingCentre {
 
     // Fields
-    private int capacity;
-    private int centreID;
-    private Date dateCreated;
+    private final int capacity;
+    private final int centreID;
+    private final int dateCreated;
     private int monthlyIntake;
-    public ArrayList <Trainee> currentTrainees;
+    private ArrayList <Trainee> currentTrainees;
 
     // Constructor
-    public TrainingCentre() {
+    public TrainingCentre(int dateCreated, int centreID, int monthlyIntake) {
 
-        capacity = 100;
-        currentTrainees = new ArrayList<>();
+        this.dateCreated = dateCreated;
+        this.capacity = 100;
+        this.currentTrainees = new ArrayList<>();
+        this.centreID = centreID;
+        this.monthlyIntake = monthlyIntake;
+    }
+    public TrainingCentre(int dateCreated, int centreID) {
+
+        this.dateCreated = dateCreated;
+        this.capacity = 100;
+        this.currentTrainees = new ArrayList<>();
+        this.centreID = centreID;
     }
 
     // Getters
-    public int  getCapacity() throws CapacityExceededException  {
-
-        CapacityExceededException exc = new CapacityExceededException();
-        if(capacity > 100) throw exc;
-        return capacity;
-    }
     public int  getCentreID()      {return centreID;}
-    public Date getDateCreated()   {return dateCreated;}
+    public int getDateCreated()    {return dateCreated;}
     public int  getMonthlyIntake() {return monthlyIntake;}
 
     // Setters
-    public void setCapacity (int capacity) throws CapacityExceededException {
-
-        CapacityExceededException exc = new CapacityExceededException();
-        if(capacity > 100) throw exc;
-        this.capacity = capacity;
-    }
-    public void setCentreID      (int centreID)      {this.centreID = centreID;}
-    public void setDateCreated   (Date dateCreated)  {this.dateCreated = dateCreated;}
     public void setMonthlyIntake (int monthlyIntake) {this.monthlyIntake = monthlyIntake;}
 
     // Methods
     public boolean isFull() {
 
         return currentTrainees.size() == capacity;
+    }
+
+    public int getVacancies() {
+
+        return capacity - currentTrainees.size();
+    }
+
+    public void addTrainee(Trainee trainee) throws CapacityExceededException {
+
+        currentTrainees.add(trainee);
+        CapacityExceededException capacityExceededException = new CapacityExceededException();
+        if (currentTrainees.size() > capacity) {
+
+            currentTrainees.remove(101);
+            throw capacityExceededException;
+        }
     }
 }
