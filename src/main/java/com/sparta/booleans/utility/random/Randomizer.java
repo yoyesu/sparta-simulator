@@ -15,4 +15,11 @@ public class Randomizer {
         int newCentreIntake = random.nextInt(51);
         return newCentreIntake;
     }
+
+    public static int getRandomCentreIntake (int maxBound) {
+        Random random = new Random();
+        //since upper bound is exclusive it wont include the number, so add +1 to include it (make it inclusive)
+        int newCentreIntake = random.nextInt(maxBound);
+        return newCentreIntake;
+    }
 }
