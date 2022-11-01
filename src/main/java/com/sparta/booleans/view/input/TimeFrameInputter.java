@@ -1,5 +1,7 @@
 package com.sparta.booleans.view.input;
 
+import com.sparta.booleans.exceptions.InvalidTimeFrameMonthException;
+
 import java.util.Scanner;
 
 //how many years and dates they want
@@ -35,13 +37,20 @@ public class TimeFrameInputter implements Inputable{
         return getInputInt();
     }
 
-    private int getMonths(){
+    private int getMonths() throws InvalidTimeFrameMonthException {
         System.out.println("Enter the number of months: ");
-        int input = 99;
-        while (input > 11) {
-            System.out.println("Maximum number of months is 11");
+        int input = 999;
+        try{
             input = getInputInt();
-        }return input;
+            if(input > 11)
+            {
+                throw new InvalidTimeFrameMonthException();
+            }
+        }catch (InvalidTimeFrameMonthException e){
+            System.out.println(e.getMessage());
+            input = getMonths();
+        }
+        return input;
 
     }
 }
