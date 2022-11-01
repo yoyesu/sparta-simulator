@@ -1,6 +1,7 @@
 package com.sparta.booLeans.simulator;
 
 import com.sparta.booLeans.simulator.trainee.Trainee;
+import com.sparta.booLeans.simulator.trainingCentre.CapacityExceededException;
 import com.sparta.booLeans.simulator.trainingCentre.TrainingCentre;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
@@ -12,7 +13,7 @@ public class TrainingCentreTEST {
     @DisplayName("Check that isFull returns false")
     void checkReturnsFalse() {
         
-        TrainingCentre trainingCentre = new TrainingCentre();
+        TrainingCentre trainingCentre = new TrainingCentre(7, 1, 21);
         Assertions.assertEquals(false, trainingCentre.isFull());
     }
 
@@ -20,13 +21,17 @@ public class TrainingCentreTEST {
     @DisplayName("Check that isFull returns true")
     void checkReturnsTrue() {
 
-        TrainingCentre trainingCentre = new TrainingCentre();
+        TrainingCentre trainingCentre = new TrainingCentre(12, 3, 35);
         Trainee[] trainees = new Trainee[100];
 
         // Add items to trainingCentre
         for (int i = 0; i < 100; i++) {
             trainees[i] = new Trainee();
-            trainingCentre.currentTrainees.add(trainees[i]);
+            try {
+                trainingCentre.addTrainee(trainees[i]);
+            } catch (CapacityExceededException e) {
+                e.getMessage();
+            }
         }
 
         Assertions.assertEquals(true, trainingCentre.isFull());
