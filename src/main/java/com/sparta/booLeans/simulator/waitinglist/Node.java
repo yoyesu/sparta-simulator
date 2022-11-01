@@ -1,4 +1,4 @@
-package com.sparta.booLeans.simulator;
+package com.sparta.booLeans.simulator.waitinglist;
 
 public class Node<E> {
 

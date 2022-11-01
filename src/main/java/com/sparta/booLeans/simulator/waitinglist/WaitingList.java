@@ -1,6 +1,4 @@
-package com.sparta.booLeans.simulator;
-
-import java.util.Queue;
+package com.sparta.booLeans.simulator.waitinglist;
 
 public class WaitingList<E>  {
 
