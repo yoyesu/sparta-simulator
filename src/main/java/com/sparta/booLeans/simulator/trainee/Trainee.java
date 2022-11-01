@@ -5,8 +5,8 @@ public class Trainee implements TraineeInterface {
     private int traineeID;
     private boolean isTraining;
     private boolean isWaiting;
-    private String dateCreated;
-    private String startTrainingDate;
+    private int monthCreated;
+    private int startTrainingMonth;
 
 
     @Override
@@ -20,13 +20,13 @@ public class Trainee implements TraineeInterface {
     }
 
     @Override
-    public void setDateCreated() {
-        this.dateCreated=dateCreated;
+    public void setMonthCreated() {
+        this.monthCreated=monthCreated;
     }
 
     @Override
-    public String getDateCreated() {
-        return dateCreated;
+    public int getMonthCreated() {
+        return monthCreated;
     }
 
     @Override
@@ -35,8 +35,8 @@ public class Trainee implements TraineeInterface {
     }
 
     @Override
-    public String getStartTrainingDate() {
-        return startTrainingDate;
+    public int getStartTrainingMonth() {
+        return startTrainingMonth;
     }
 
     @Override
