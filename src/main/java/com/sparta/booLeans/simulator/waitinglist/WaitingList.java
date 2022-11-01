@@ -2,7 +2,7 @@ package com.sparta.booLeans.simulator.waitinglist;
 
 public class WaitingList<E>  {
 
-    private static WaitingList<Trainee> waitingList = new WaitingList<>();
+    private static WaitingList waitingList;
 
     private Node<E> head;
     private Node<E> tail;
@@ -55,7 +55,13 @@ public class WaitingList<E>  {
         return size;
     }
 
-    public static WaitingList<Trainee> getWaitingList() {
+    public static WaitingList getWaitingList() {
+        return waitingList;
+    }
+
+    public static <T> WaitingList<T> generateWaitingList() {
+        WaitingList<T> waitingListGeneric = new WaitingList<T>();
+        waitingList = waitingListGeneric;
         return waitingList;
     }
 }
