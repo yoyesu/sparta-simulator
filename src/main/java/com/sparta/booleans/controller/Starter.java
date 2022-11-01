@@ -3,6 +3,7 @@ package com.sparta.booleans.controller;
 import com.sparta.booleans.model.DTO;
 import com.sparta.booleans.utility.logging.CustomLoggerConfiguration;
 import com.sparta.booleans.view.CSVWriter;
+import com.sparta.booleans.view.OutputToConsole;
 import com.sparta.booleans.view.input.TimeFrameInputter;
 
 import java.util.logging.Level;
@@ -14,8 +15,8 @@ public class Starter {
 
 
         // This customises the log , instance is not used.
-        CustomLoggerConfiguration startLoggerConfig = CustomLoggerConfiguration.getInstance();
-        //
+       CustomLoggerConfiguration startLoggerConfig = CustomLoggerConfiguration.getInstance();
+
 
         Logger logger = CustomLoggerConfiguration.myLogger;
 
@@ -27,7 +28,8 @@ public class Starter {
 
         logger.log(Level.INFO, " The simulation has completed");
 
-
+        OutputToConsole outputter = new OutputToConsole();
+        outputter.outPutter(currentDTO);
         CSVWriter writer = new CSVWriter();
 
         writer.sendOutput(currentDTO);
