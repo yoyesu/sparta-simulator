@@ -1,5 +1,7 @@
 package com.sparta.booleans.view;
 
+import com.sparta.booleans.controller.App;
+import com.sparta.booleans.controller.Starter;
 import com.sparta.booleans.model.DTO;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -21,6 +23,9 @@ class CSVWriterTest {
 
     @BeforeEach
     void setup() {
+
+        Starter starter = new Starter();
+        starter.start();
 
         sample1.setTotalMonths(15);
         sample1.setFullCentres(11);

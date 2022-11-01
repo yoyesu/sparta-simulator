@@ -1,21 +1,30 @@
 package com.sparta.booleans.view;
 
 import com.sparta.booleans.model.DTO;
+import com.sparta.booleans.utility.logging.CustomLoggerConfiguration;
 
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class CSVWriter implements OutputInterface {
+
+    public Logger logger = CustomLoggerConfiguration.myLogger;
 
     private static final String CSV_FILE_NAME = "src/main/resources/simulation_report.csv";
     private static final List<List<String>> simulationOutputs = new ArrayList<>(new ArrayList<>());
 
     @Override
     public void sendOutput(DTO simulationData) {
+
+
+
         if( simulationData == null) {
             throw new IllegalArgumentException("DTO must not be null");
         }
+        logger.log(Level.INFO, " Simulation Data has been accepted into ");
         acceptSimulationData(simulationData);
     }
 
