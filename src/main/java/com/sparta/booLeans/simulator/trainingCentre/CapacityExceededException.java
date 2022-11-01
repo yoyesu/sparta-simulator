@@ -1,4 +1,4 @@
-package com.sparta.booLeans.simulator;
+package com.sparta.booLeans.simulator.trainingCentre;
 
 public class CapacityExceededException extends Exception{
 
