@@ -33,9 +33,8 @@ public class Simulator {
             int totalIntake = generateTrainingCentreMonthlyIntake(trainingCentres);
 
             int centerIndex = 0;
-            while(totalIntake > 0) {
+            while (totalIntake > 0) {
                 TrainingCentre centre = trainingCentres.get(centerIndex);
-                System.out.println(centerIndex + " " + centre.getMonthlyIntake() + " " + waitingList.getSize());
                 if (waitingList.getSize() > 0) {
                     if (centre.getMonthlyIntake() > 0 && !centre.isFull()) {
                         Trainee trainee = waitingList.poll();
@@ -44,30 +43,21 @@ public class Simulator {
                             trainee.setTraining(true);
                             trainee.setStartTrainingMonth(x);
                             totalIntake--;
-                            centre.setMonthlyIntake(centre.getMonthlyIntake() - 1);
 
-                            centerIndex++;
-                            if (centerIndex == trainingCentres.size()) {
-                                centerIndex = 0;
-                            }
                         } catch (CapacityExceededException e) {
                             waitingList.addToFront(trainee);
                         }
+                    }
+                    centerIndex++;
+                    if (centerIndex == trainingCentres.size()) {
+                        centerIndex = 0;
                     }
                 } else {
                     break;
                 }
             }
         }
-
-        while(waitingList.getSize() > 0) {
-            System.out.println(waitingList.poll().getTraineeId());
-        }
-
-        System.out.println(Arrays.toString(trainingCentres.toArray()));
-
-        DTO results = new DTO();
-        return results;
+        return getResults(waitingList, trainingCentres, months);
     }
 
     private static Trainee[] generateTrainees(int month) {
@@ -93,5 +83,25 @@ public class Simulator {
             }
         }
         return totalIntake;
+    }
+
+    private static DTO getResults(WaitingList<Trainee> waitingList,
+                                  ArrayList<TrainingCentre> trainingCentres, int months) {
+        DTO dto = new DTO();
+        int fullCentres = 0;
+        int totalTrainees = 0;
+        for (TrainingCentre centre: trainingCentres) {
+            if (centre.isFull()) {
+                fullCentres++;
+            }
+            totalTrainees += centre.getCurrentTrainees().size();
+        }
+
+        dto.setFullCentres(fullCentres);
+        dto.setOpenCentres(trainingCentres.size());
+        dto.setTotalTrainees(totalTrainees + waitingList.getSize());
+        dto.setWaitingTrainees(waitingList.getSize());
+        dto.setTotalMonths(months);
+        return dto;
     }
 }
