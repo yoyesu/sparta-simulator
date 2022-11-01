@@ -5,11 +5,11 @@ public interface TraineeInterface {
     void setTraineeId(int traineeId);
     int getTraineeId(int traineeId);
 
-    void setDateCreated();
-    String getDateCreated();
+    void setMonthCreated();
+    int getMonthCreated();
 
     void setIsTraining();
-    String getStartTrainingDate();
+    int getStartTrainingMonth();
 
     boolean isTraining(boolean isTraining);
     void setIsWaiting();
