@@ -30,9 +30,9 @@ public class TrainingCentre {
     }
 
     // Getters
-    public int  getCentreID()      {return centreID;}
+    public int getCentreID()       {return centreID;}
     public int getDateCreated()    {return dateCreated;}
-    public int  getMonthlyIntake() {return monthlyIntake;}
+    public int getMonthlyIntake()  {return monthlyIntake;}
 
     // Setters
     public void setMonthlyIntake (int monthlyIntake) {this.monthlyIntake = monthlyIntake;}
