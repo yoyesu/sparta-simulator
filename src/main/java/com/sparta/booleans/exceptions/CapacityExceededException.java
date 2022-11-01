@@ -1,6 +1,6 @@
 package com.sparta.booleans.exceptions;
 
-public class CapacityExceededException extends Exception{
+public class CapacityExceededException extends RuntimeException {
 
     @Override
     public String getMessage() {

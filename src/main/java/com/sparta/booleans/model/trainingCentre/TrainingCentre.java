@@ -52,11 +52,15 @@ public class TrainingCentre {
     public void addTrainee(Trainee trainee) throws CapacityExceededException {
 
         currentTrainees.add(trainee);
-        CapacityExceededException capacityExceededException = new CapacityExceededException();
-        if (currentTrainees.size() > capacity) {
+        //try {
+            if (currentTrainees.size() > capacity) {
 
-            currentTrainees.remove(100);
-            throw capacityExceededException;
+                currentTrainees.remove(100);
+                throw new CapacityExceededException();
+//            }
+//        } catch (CapacityExceededException e) {
+//            System.out.println(e.getMessage());
+//            System.out.println("Trainee " + trainee.getTraineeId() + " was not added!");
         }
     }
 }
