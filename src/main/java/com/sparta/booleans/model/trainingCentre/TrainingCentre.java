@@ -35,6 +35,11 @@ public class TrainingCentre {
     public int getDateCreated()    {return dateCreated;}
     public int getMonthlyIntake()  {return monthlyIntake;}
 
+    public ArrayList <Trainee> getCurrentTrainees() {
+
+        return new ArrayList<>(currentTrainees);
+    }
+
     // Setters
     public void setMonthlyIntake (int monthlyIntake) {this.monthlyIntake = monthlyIntake;}
 
@@ -52,15 +57,12 @@ public class TrainingCentre {
     public void addTrainee(Trainee trainee) throws CapacityExceededException {
 
         currentTrainees.add(trainee);
-        //try {
-            if (currentTrainees.size() > capacity) {
+        monthlyIntake--;
 
-                currentTrainees.remove(100);
-                throw new CapacityExceededException();
-//            }
-//        } catch (CapacityExceededException e) {
-//            System.out.println(e.getMessage());
-//            System.out.println("Trainee " + trainee.getTraineeId() + " was not added!");
+        if (currentTrainees.size() > capacity) {
+
+            currentTrainees.remove(100);
+            throw new CapacityExceededException();
         }
     }
 }
