@@ -3,6 +3,12 @@ package com.sparta.booleans.view;
 import com.sparta.booleans.model.DTO;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 class CSVWriterTest {
 
@@ -16,11 +22,11 @@ class CSVWriterTest {
     @BeforeEach
     void setup() {
 
-        sample1.setTotalMonths(12);
-        sample1.setFullCentres(8);
-        sample1.setOpenCentres(16);
-        sample1.setTotalTrainees(300);
-        sample1.setWaitingTrainees(56);
+        sample1.setTotalMonths(15);
+        sample1.setFullCentres(11);
+        sample1.setOpenCentres(14);
+        sample1.setTotalTrainees(280);
+        sample1.setWaitingTrainees(49);
 
 
         sample2.setTotalMonths(12);
@@ -30,11 +36,11 @@ class CSVWriterTest {
         sample2.setWaitingTrainees(56);
 
 
-        sample3.setTotalMonths(12);
-        sample3.setFullCentres(8);
-        sample3.setOpenCentres(16);
-        sample3.setTotalTrainees(300);
-        sample3.setWaitingTrainees(56);
+        sample3.setTotalMonths(13);
+        sample3.setFullCentres(9);
+        sample3.setOpenCentres(17);
+        sample3.setTotalTrainees(150);
+        sample3.setWaitingTrainees(38);
 
     }
 
@@ -48,17 +54,5 @@ class CSVWriterTest {
 
         writer.writeToFile();
 
-    }
-
-    @Test
-    void acceptSimulationData() {
-    }
-
-    @Test
-    void convertToCSV() {
-    }
-
-    @Test
-    void writeToFile() {
     }
 }
