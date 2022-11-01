@@ -1,18 +1,20 @@
 package com.sparta.booleans.simulator.output;
 
-import java.util.Map;
+import com.sparta.booleans.simulator.model.DTO;
+
+import java.util.List;
 
 public class CSVWriter implements OutputInterface{
 
-
     @Override
-    public void sendOutput(Map<String, Integer> simulationData) {
+    public void sendOutput(DTO simulationData) {
 
-        if (simulationData.size() < 5) {
-            throw new IllegalArgumentException("simulationData does not contain sufficient data entries");
-        }
+    }
 
-
+    // Takes a list of DTOs, one for each contiguous run of the simulation
+    // Converts each DTO to a line (String)
+    public String convertToCSV(List<DTO> simulationData) {
+        return null;
 
     }
 }
