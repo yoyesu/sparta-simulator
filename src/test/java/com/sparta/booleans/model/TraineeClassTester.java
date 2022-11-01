@@ -7,19 +7,15 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 public class TraineeClassTester {
-static Trainee trainee1 = new Trainee();
-static Trainee trainee2 = new Trainee();
+static Trainee trainee1 = new Trainee(1, 5);
+static Trainee trainee2 = new Trainee(10,15);
     @BeforeEach
     @DisplayName("Create different trainee objects")
     public void createTrainees(){
-        trainee1.setTraineeId(1);
         trainee1.setTraining(true);
-        trainee1.setMonthCreated(5);
         trainee1.setStartTrainingMonth(15);
 
-        trainee1.setTraineeId(10);
-        trainee1.setTraining(false);
-        trainee1.setMonthCreated(15);
+        trainee2.setTraining(false);
         trainee2.setStartTrainingMonth(0);
     }
 
@@ -39,6 +35,6 @@ static Trainee trainee2 = new Trainee();
         Assertions.assertEquals(trainee1.getMonthCreated(),5);
         Assertions.assertEquals(trainee2.getMonthCreated(),15);
         Assertions.assertEquals(trainee1.getStartTrainingMonth(),15);
-        Assertions.assertEquals(trainee2.getStartTrainingMonth(),16);
+        Assertions.assertEquals(trainee2.getStartTrainingMonth(),0);
     }
 }
