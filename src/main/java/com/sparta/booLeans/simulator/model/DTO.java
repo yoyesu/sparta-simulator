@@ -5,6 +5,9 @@ This Data Transfer Object holds the data gathered during simulation.
  */
 public class DTO {
 
+    // Number of centres open during simulation
+    private int openCentres;
+
     // Number of centres which are at full capacity after simulation
     private int fullCentres;
 
@@ -14,10 +17,8 @@ public class DTO {
     // Number of trainees in the waiting list
     private int waitingTrainees;
 
-    // NUmber of months the simulation has run for
+    // Number of months the simulation has run for
     private int totalMonths;
-    // Number of centres open during simulation
-    private int openCentres;
 
 
     public int getFullCentres() {
