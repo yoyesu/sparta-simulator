@@ -7,7 +7,14 @@ public class Trainee implements TraineeInterface {
     private int monthCreated;
     private int startTrainingMonth;
 
-@Override
+    public Trainee(int traineeId, int monthCreated) {
+        this.traineeId = traineeId;
+        this.monthCreated = monthCreated;
+        this.isTraining = false;
+        this.startTrainingMonth = -1;
+    }
+
+    @Override
     public void setTraineeId(int traineeId) {
         this.traineeId= traineeId;
     }
