@@ -1,13 +1,13 @@
 package com.sparta.booleans.simulator.output;
 
-import java.util.Map;
+import com.sparta.booleans.simulator.model.DTO;
 
 public interface OutputInterface {
 
      /**
-      * @param simulationData  : A Map with String key "Data Name" and Integer value for the data.
+      * @param simulationData  : A DTO object containing the reported simulation data.
       */
-     void sendOutput(Map<String, Integer> simulationData);
+     void sendOutput(DTO simulationData);
 
 }
 
