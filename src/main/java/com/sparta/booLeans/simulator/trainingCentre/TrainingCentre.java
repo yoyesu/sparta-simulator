@@ -54,7 +54,7 @@ public class TrainingCentre {
         CapacityExceededException capacityExceededException = new CapacityExceededException();
         if (currentTrainees.size() > capacity) {
 
-            currentTrainees.remove(101);
+            currentTrainees.remove(100);
             throw capacityExceededException;
         }
     }
