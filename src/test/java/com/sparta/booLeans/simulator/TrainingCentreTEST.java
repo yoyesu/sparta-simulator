@@ -33,7 +33,22 @@ public class TrainingCentreTEST {
                 e.getMessage();
             }
         }
-
         Assertions.assertEquals(true, trainingCentre.isFull());
+    }
+
+    @Test
+    @DisplayName("Check for Exception")
+    void checkException() {
+
+        Assertions.assertThrows(CapacityExceededException.class, () -> {
+
+            TrainingCentre trainingCentre = new TrainingCentre(12, 3, 35);
+            Trainee[] trainees = new Trainee[102];
+
+            for (int i = 0; i < 102; i++) {
+                trainees[i] = new Trainee();
+                trainingCentre.addTrainee(trainees[i]);
+            }
+        });
     }
 }
