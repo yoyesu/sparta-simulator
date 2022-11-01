@@ -10,7 +10,7 @@ public class TimeFrameInputter implements Inputable{
     public int getInputInt() {
         Scanner scanner = new Scanner(System.in);
         int input = scanner.nextInt();
-        while (input < 1) {
+        while (input < 0) {
             System.out.println("Invalid input");
             input = scanner.nextInt();
         }
@@ -20,7 +20,14 @@ public class TimeFrameInputter implements Inputable{
     @Override
     public int getTotalMonths()
     {
-        return getMonths() + (getYears()*12);
+        System.out.println("Enter Years and months for simulation");
+        return  (getYears()*12) + getMonths();
+    }
+
+    public int getTotalMonths(int years, int months)
+    {
+        System.out.println("Enter Years and months for simulation");
+        return  (years * 12) + months;
     }
 
     private int getYears() {
@@ -30,6 +37,11 @@ public class TimeFrameInputter implements Inputable{
 
     private int getMonths(){
         System.out.println("Enter the number of months: ");
-        return getInputInt();
+        int input = 99;
+        while (input > 11) {
+            System.out.println("Maximum number of months is 11");
+            input = getInputInt();
+        }return input;
+
     }
 }
