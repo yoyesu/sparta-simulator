@@ -26,7 +26,7 @@ public class TrainingCentreTEST {
 
         // Add items to trainingCentre
         for (int i = 0; i < 100; i++) {
-            trainees[i] = new Trainee();
+            trainees[i] = new Trainee(10,10);
             try {
                 trainingCentre.addTrainee(trainees[i]);
             } catch (CapacityExceededException e) {
@@ -46,7 +46,7 @@ public class TrainingCentreTEST {
             Trainee[] trainees = new Trainee[102];
 
             for (int i = 0; i < 102; i++) {
-                trainees[i] = new Trainee();
+                trainees[i] = new Trainee(10,10);
                 trainingCentre.addTrainee(trainees[i]);
             }
         });
