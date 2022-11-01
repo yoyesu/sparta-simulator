@@ -4,7 +4,7 @@ import java.util.Queue;
 
 public class WaitingList<E>  {
 
-    private static WaitingList<Integer> waitingList = new WaitingList<>();
+    private static WaitingList<Trainee> waitingList = new WaitingList<>();
 
     private Node<E> head;
     private Node<E> tail;
@@ -17,7 +17,7 @@ public class WaitingList<E>  {
         }
 
         Node<E> oldHead = head;
-        head = head.getTail();
+        remove();
         return oldHead.getElement();
     }
 
@@ -40,6 +40,10 @@ public class WaitingList<E>  {
         }
     }
 
+    public void remove() {
+        head = head.getTail();
+    }
+
     public int getSize() {
         if (head == null) {
             return 0;
@@ -53,7 +57,7 @@ public class WaitingList<E>  {
         return size;
     }
 
-    public static WaitingList<Integer> getWaitingList() {
+    public static WaitingList<Trainee> getWaitingList() {
         return waitingList;
     }
 }
