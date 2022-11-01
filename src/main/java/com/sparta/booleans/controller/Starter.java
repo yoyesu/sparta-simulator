@@ -20,7 +20,7 @@ public class Starter {
 
         Logger logger = CustomLoggerConfiguration.myLogger;
 
-        logger.log(Level.INFO, " The simulation has starter");
+        logger.log(Level.INFO, " The simulation has started");
 
         TimeFrameInputter imputter = new TimeFrameInputter();
 
