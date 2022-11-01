@@ -19,6 +19,7 @@ public class CustomLoggerConfiguration {
     public static void getCustomLoggerConfiguration(Logger logger) {
         logger.setUseParentHandlers(false);
         logger.addHandler(CustomFileHandler.getFileHandler());
+        logger.addHandler(CustomConsoleHandler.getConsoleHandler());
         logger.setLevel(Level.ALL);
     }
 }
