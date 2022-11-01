@@ -1,8 +1,8 @@
 package com.sparta.booleans.view.input;
 
 public interface Inputable {
-    public int getInputInt();
+     int getInputInt();
 
-    public int getTotalMonths();
+     int getTotalMonths();
 
 }
