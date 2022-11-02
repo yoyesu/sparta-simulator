@@ -1,2 +1,5 @@
-package com.sparta.booleans.model;public class CourseType {
+package com.sparta.booleans.model;
+
+public enum CourseType {
+    JAVA, CSHARP, DATA, DEVOPS, BUSINESS;
 }
