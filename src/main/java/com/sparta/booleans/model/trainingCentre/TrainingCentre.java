@@ -4,14 +4,14 @@ import com.sparta.booleans.exceptions.CapacityExceededException;
 import com.sparta.booleans.model.trainee.Trainee;
 import java.util.ArrayList;
 
-public class TrainingCentre {
+public abstract class TrainingCentre {
 
     // Fields
-    private final int capacity;
-    private final int centreID;
-    private final int dateCreated;
-    private int monthlyIntake;
-    private ArrayList <Trainee> currentTrainees;
+    protected int capacity;
+    protected final int centreID;
+    protected final int dateCreated;
+    protected int monthlyIntake;
+    protected ArrayList <Trainee> currentTrainees;
 
     // Constructor
     public TrainingCentre(int dateCreated, int centreID, int monthlyIntake) {
@@ -34,7 +34,6 @@ public class TrainingCentre {
     public int getCentreID()       {return centreID;}
     public int getDateCreated()    {return dateCreated;}
     public int getMonthlyIntake()  {return monthlyIntake;}
-
     public ArrayList <Trainee> getCurrentTrainees() {
 
         return new ArrayList<>(currentTrainees);
@@ -65,4 +64,11 @@ public class TrainingCentre {
             throw new CapacityExceededException();
         }
     }
+
+    public int openHowLong(int currentMonth) {
+
+        return currentMonth - dateCreated;
+    }
+
+    abstract boolean shouldBeClosed();
 }
