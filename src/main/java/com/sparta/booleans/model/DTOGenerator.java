@@ -37,7 +37,7 @@ public class DTOGenerator {
             if (centre.isFull()) {
                 incrementHashMap(fullCentres, type);
             }
-            if (centre.isClosed()) {
+            if (centre.getIsClosed()) {
                 incrementHashMap(closedCentres, type);
             }
         }
