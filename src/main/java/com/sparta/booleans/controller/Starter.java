@@ -28,10 +28,10 @@ public class Starter {
 
         logger.log(Level.INFO, " The simulation has completed");
 
-        OutputToConsole outputter = new OutputToConsole();
-        outputter.outPutter(currentDTO);
         CSVWriter writer = new CSVWriter();
+        OutputToConsole outputter = new OutputToConsole();
 
+        outputter.sendOutput(currentDTO);
         writer.sendOutput(currentDTO);
         writer.writeToFile();
 
