@@ -13,6 +13,8 @@ public interface TraineeInterface {
 
     public boolean isTraining();
     public void setTraining(boolean isTraining);
+    public  String getCourseType();
+    public void setCourseType(String courseType);
 
     //Method for how long the trainee is waiting before training?
 
