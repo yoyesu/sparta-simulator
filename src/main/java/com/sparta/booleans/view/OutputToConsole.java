@@ -2,8 +2,6 @@ package com.sparta.booleans.view;
 
 import com.sparta.booleans.model.DTO;
 
-import java.util.ArrayList;
-import java.util.List;
 
 public class OutputToConsole implements OutputInterface{
     public static void outPutter(DTO simulationData)
@@ -19,6 +17,7 @@ public class OutputToConsole implements OutputInterface{
 
     @Override
     public void sendOutput(DTO simulationData) {
+        outPutter(simulationData);
 
     }
 }
