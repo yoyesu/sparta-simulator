@@ -128,5 +128,5 @@ The parts of the program which were not suitable for unit testing were tested ma
 ***
 ## Future Development
 
-For future improvements we would like to implement a user-friendly UI to view records in the database.<br>
-Also implementing more operations the user could do to the database such as deleting, adding a new record etc.<br>
+For future improvements we would like to implement a user-friendly UI to view the data.<br>
+
