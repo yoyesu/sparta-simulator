@@ -1,0 +1,61 @@
+package com.sparta.booleans.model;
+
+import java.util.HashMap;
+
+public class MappedDTO {
+
+    // Number of months the simulation has run for
+    private int totalMonths;
+
+    // Number of trainees in the waiting list by type
+    HashMap<CourseType, Integer> traineesWaiting;
+
+    // Number of trainees currently training by type
+    HashMap<CourseType, Integer> traineesTraining;
+
+    // Number of centres open during simulation by type
+    HashMap<TrainingCentreType, Integer> openCentres;
+
+    // Number of centres closed during simulation by type
+    HashMap<TrainingCentreType, Integer> closedCentres;
+
+    // Number of centres which are at full capacity after simulation by type
+    HashMap<TrainingCentreType, Integer> fullCentres;
+
+
+    public MappedDTO(int totalMonths, HashMap<CourseType, Integer> traineesWaiting,
+               HashMap<CourseType, Integer> traineesTraining, HashMap<TrainingCentreType,
+            Integer> openCentres, HashMap<TrainingCentreType, Integer> closedCentres,
+               HashMap<TrainingCentreType, Integer> fullCentres) {
+        this.totalMonths = totalMonths;
+        this.traineesWaiting = traineesWaiting;
+        this.traineesTraining = traineesTraining;
+        this.openCentres = openCentres;
+        this.closedCentres = closedCentres;
+        this.fullCentres = fullCentres;
+    }
+
+    public int getTotalMonths() {
+        return totalMonths;
+    }
+
+    public HashMap<CourseType, Integer> getTraineesWaiting() {
+        return traineesWaiting;
+    }
+
+    public HashMap<CourseType, Integer> getTraineesTraining() {
+        return traineesTraining;
+    }
+
+    public HashMap<TrainingCentreType, Integer> getOpenCentres() {
+        return openCentres;
+    }
+
+    public HashMap<TrainingCentreType, Integer> getClosedCentres() {
+        return closedCentres;
+    }
+
+    public HashMap<TrainingCentreType, Integer> getFullCentres() {
+        return fullCentres;
+    }
+}
