@@ -1,62 +1,97 @@
 package com.sparta.booleans.model;
 
+import com.sparta.booleans.model.trainee.Trainee;
 import com.sparta.booleans.model.waitinglist.WaitingList;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.ValueSource;
+import org.junit.jupiter.params.provider.MethodSource;
 
 import java.lang.reflect.Modifier;
+import java.util.ArrayList;
 
 public class WaitingListTest {
 
-    private WaitingList<Integer> waitingList;
+    private WaitingList waitingList = WaitingList.getWaitingList();
+
+    private static Trainee[] getTraineeArray() {
+        ArrayList<Trainee> trainees = new ArrayList<>();
+        for (int i = 0; i < 10; i++) {
+            trainees.add(new Trainee(i, 0));
+        }
+        return trainees.toArray(Trainee[]::new);
+    }
 
     @BeforeEach
-    public void resetSingleton() {
-        waitingList = WaitingList.<Integer>generateWaitingList();
+    public void resetWaitingList() {
+        while (waitingList.getSize() > 0) {
+            waitingList.remove();
+        }
     }
 
     @ParameterizedTest
-    @ValueSource(ints = {1, 2, 3, 4, 5, 6, 7, 8, 9})
-    @DisplayName("Test elements can be added to the queue")
-    void testElementsCanBeAdded(int i) {
-        waitingList.add(i);
-        Assertions.assertEquals(i, waitingList.peek());
+    @MethodSource("getTraineeArray")
+    @DisplayName("Test trainees can be added to the waiting list")
+    void testTraineeCanBeAdded(Trainee trainee) {
+        waitingList.add(trainee);
+        Assertions.assertEquals(trainee, waitingList.peek());
     }
 
     @Test
-    @DisplayName("Test array of elements can be added to the queue")
-    void testArrayOfElementsCanBeAdded() {
-        Integer[] ints = {1,2,3,4,5};
-        waitingList.add(ints);
-        Assertions.assertEquals(ints[0], waitingList.peek());
+    @DisplayName("Test array of trainees can be added to the waiting list")
+    void testArrayOfTraineesCanBeAdded() {
+        Trainee[] trainees = getTraineeArray();
+        waitingList.add(trainees);
+        Assertions.assertEquals(trainees[0], waitingList.peek());
     }
 
     @ParameterizedTest
-    @ValueSource(ints = {1, 2, 3, 4, 5, 6, 7, 8, 9})
-    @DisplayName("Test elements can be removed from the queue")
-    void testElementsCanBeRemoved(int i) {
-        waitingList.add(i);
+    @MethodSource("getTraineeArray")
+    @DisplayName("Test trainees can be removed from the waiting list")
+    void testTraineesCanBeRemoved(Trainee trainee) {
+        waitingList.add(trainee);
         waitingList.remove();
         Assertions.assertNull(waitingList.peek());
     }
 
     @Test
-    @DisplayName("Test get size returns the number of elements")
+    @DisplayName("Test get size returns the number of trainees")
     void testGetSize() {
-        Integer[] ints = {1,2,3,4,5};
-        waitingList.add(ints);
-        Assertions.assertEquals(ints.length, waitingList.getSize());
+        Trainee[] trainees = getTraineeArray();
+        waitingList.add(trainees);
+        Assertions.assertEquals(trainees.length, waitingList.getSize());
     }
 
     @Test
-    @DisplayName("Test an element can be popped from the queue")
-    void testElementCanBePopped() {
-        Integer[] ints = {1,2,3,4,5};
-        waitingList.add(ints);
-        Assertions.assertEquals(ints[0], waitingList.poll());
-        Assertions.assertEquals(ints[1], waitingList.poll());
-        Assertions.assertEquals(ints[2], waitingList.peek());
+    @DisplayName("Test an trainee can be popped from the waiting list")
+    void testTraineeCanBePopped() {
+        Trainee[] trainees = getTraineeArray();
+        waitingList.add(trainees);
+        Assertions.assertEquals(trainees[0], waitingList.poll());
+        Assertions.assertEquals(trainees[1], waitingList.poll());
+        Assertions.assertEquals(trainees[2], waitingList.peek());
+    }
+
+    @Test
+    @DisplayName("Test an trainee can be popped from the waiting list by course type")
+    void testTraineeCanBePoppedByType() {
+        Trainee[] trainees = getTraineeArray();
+        trainees[0].setCourseType(CourseType.DATA);
+        trainees[1].setCourseType(CourseType.JAVA);
+        trainees[2].setCourseType(CourseType.DEVOPS);
+
+        waitingList.add(trainees);
+        Assertions.assertEquals(trainees[1], waitingList.pollType(CourseType.JAVA));
+        Assertions.assertEquals(trainees[2], waitingList.pollType(CourseType.DEVOPS));
+        Assertions.assertEquals(trainees[0], waitingList.poll());
+        Assertions.assertEquals(trainees[3], waitingList.peek());
+    }
+
+    @Test
+    @DisplayName("Test an arraylist containing all trainees in the queue can be returned")
+    void testTraineeArrayListCanBeReturned() {
+        Trainee[] trainees = getTraineeArray();
+        waitingList.add(trainees);
+        Assertions.assertArrayEquals(trainees, waitingList.toArrayList().toArray());
     }
 
     @Test
