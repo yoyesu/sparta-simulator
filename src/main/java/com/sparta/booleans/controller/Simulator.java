@@ -1,10 +1,13 @@
 package com.sparta.booleans.controller;
 
 import com.sparta.booleans.exceptions.CapacityExceededException;
+import com.sparta.booleans.exceptions.TraineeNotFoundException;
 import com.sparta.booleans.model.DTO;
+import com.sparta.booleans.model.DTOGenerator;
+import com.sparta.booleans.model.MappedDTO;
 import com.sparta.booleans.model.trainee.Trainee;
 import com.sparta.booleans.model.trainee.TraineeInterface;
-import com.sparta.booleans.model.trainingCentre.TrainingCentre;
+import com.sparta.booleans.model.trainingCentre.*;
 import com.sparta.booleans.model.waitinglist.WaitingList;
 import com.sparta.booleans.utility.random.Randomizer;
 
@@ -16,36 +19,46 @@ public class Simulator {
 
     private static int traineeID = 1;
     private static int centreID = 1;
+    private static int month = -1;
+    private static int numberOfBootcamps = 0;
+    private static WaitingList waitingList = WaitingList.getWaitingList();
+    private static ArrayList<TrainingCentre> trainingCentres = new ArrayList<>();
 
-    public static DTO runSimulation(int months) {
-        WaitingList<Trainee> waitingList = WaitingList.<Trainee>generateWaitingList();
-        ArrayList<TrainingCentre> trainingCentres = new ArrayList<>();
+    public static MappedDTO runSimulation(int months) {
 
-        for (int x = 0; x < months; x++) {
-            Trainee[] trainees = generateTrainees(x);
+
+        for (int i = 0; i < months; i++) {
+            month++;
+
+            Trainee[] trainees = generateTrainees(month);
             waitingList.add(trainees);
 
-            if (x % 2 == 0 && x != 0) {
-                TrainingCentre trainingCentre = new TrainingCentre(x, centreID++);
-                trainingCentres.add(trainingCentre);
-            }
+            generateTrainingCentre();
 
-            int totalIntake = generateTrainingCentreMonthlyIntake(trainingCentres);
+            closeTrainingCentres();
+
+            int totalIntake = generateTrainingCentreMonthlyIntake();
 
             int centerIndex = 0;
             while (totalIntake > 0) {
                 TrainingCentre centre = trainingCentres.get(centerIndex);
                 if (waitingList.getSize() > 0) {
-                    if (centre.getMonthlyIntake() > 0 && !centre.isFull()) {
-                        Trainee trainee = waitingList.poll();
+                    if (centre.getMonthlyIntake() > 0 && !centre.isFull() && !centre.getIsClosed()) {
+                        Trainee trainee = waitingList.peek();
                         try {
+                            if (centre instanceof TechCentre) {
+                                trainee = waitingList.pollType(((TechCentre) centre).getCourseType());
+                            } else {
+                                trainee = waitingList.poll();
+                            }
                             centre.addTrainee(trainee);
                             trainee.setTraining(true);
-                            trainee.setStartTrainingMonth(x);
+                            trainee.setStartTrainingMonth(month);
                             totalIntake--;
 
                         } catch (CapacityExceededException e) {
                             waitingList.addToFront(trainee);
+                        } catch (TraineeNotFoundException e) {
                         }
                     }
                     centerIndex++;
@@ -57,7 +70,7 @@ public class Simulator {
                 }
             }
         }
-        return getResults(waitingList, trainingCentres, months);
+        return DTOGenerator.generateDTO(month, waitingList.toArrayList(), trainingCentres);
     }
 
     private static Trainee[] generateTrainees(int month) {
@@ -68,9 +81,20 @@ public class Simulator {
         return trainees;
     }
 
-    private static int generateTrainingCentreMonthlyIntake(ArrayList<TrainingCentre> trainingCentres) {
+    private static void generateTrainingCentre() {
+        if (month % 2 == 0 && month != 0) {
+            TrainingCentre trainingCentre = TraineeCentreFactory.createTrainingCentre(month, centreID++);
+            if (trainingCentre instanceof Hub) {
+                trainingCentres.add(new Hub(month, centreID++));
+                trainingCentres.add(new Hub(month, centreID++));
+            }
+            trainingCentres.add(trainingCentre);
+        }
+    }
+
+    private static int generateTrainingCentreMonthlyIntake() {
         int totalIntake = 0;
-        for (TrainingCentre centre: trainingCentres) {
+        for (TrainingCentre centre : trainingCentres) {
             if (!centre.isFull()) {
                 int monthlyIntake = Randomizer.getRandomCentreIntake();
                 if (monthlyIntake > centre.getVacancies()) {
@@ -85,23 +109,14 @@ public class Simulator {
         return totalIntake;
     }
 
-    private static DTO getResults(WaitingList<Trainee> waitingList,
-                                  ArrayList<TrainingCentre> trainingCentres, int months) {
-        DTO dto = new DTO();
-        int fullCentres = 0;
-        int totalTrainees = 0;
-        for (TrainingCentre centre: trainingCentres) {
-            if (centre.isFull()) {
-                fullCentres++;
+    private static void closeTrainingCentres() {
+        for (TrainingCentre centre : trainingCentres) {
+            if (centre.shouldBeClosed()) {
+                for (Trainee trainee : centre.getCurrentTrainees()) {
+                    waitingList.add(trainee);
+                }
+                centre.setIsClosed(true);
             }
-            totalTrainees += centre.getCurrentTrainees().size();
         }
-
-        dto.setFullCentres(fullCentres);
-        dto.setOpenCentres(trainingCentres.size());
-        dto.setTotalTrainees(totalTrainees + waitingList.getSize());
-        dto.setWaitingTrainees(waitingList.getSize());
-        dto.setTotalMonths(months);
-        return dto;
     }
 }

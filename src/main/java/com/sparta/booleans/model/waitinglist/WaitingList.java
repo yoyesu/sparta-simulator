@@ -1,34 +1,61 @@
 package com.sparta.booleans.model.waitinglist;
 
-public class WaitingList<E>  {
+import com.sparta.booleans.exceptions.TraineeNotFoundException;
+import com.sparta.booleans.model.CourseType;
+import com.sparta.booleans.model.trainee.Trainee;
 
-    private static WaitingList waitingList;
+import java.util.ArrayList;
 
-    private Node<E> head;
-    private Node<E> tail;
+public class WaitingList  {
+
+    private static WaitingList waitingList = new WaitingList();
+
+    private Node<Trainee> head;
+    private Node<Trainee> tail;
 
     private WaitingList() {}
 
-    public E poll() {
+    public Trainee poll() {
         if (head == null) {
             return null;
         }
 
-        Node<E> oldHead = head;
+        Node<Trainee> oldHead = head;
         remove();
         return oldHead.getElement();
     }
 
-    public E peek() {
+    public Trainee pollType(CourseType type) throws TraineeNotFoundException {
+        if (head == null) {
+            return null;
+        }
+
+        Node<Trainee> node = head;
+        if (head.getElement().getCourseType() == type) {
+            return poll();
+        }
+
+        while (node != null) {
+            Node<Trainee> compare = node.getTail();
+            if (compare.getElement().getCourseType() == type) {
+                node.setTail(compare.getTail());
+                return compare.getElement();
+            }
+            node = node.getTail();
+        }
+        throw new TraineeNotFoundException();
+    }
+
+    public Trainee peek() {
         if (head == null) {
             return null;
         }
         return head.getElement();
     }
 
-    public void add(E... elements) {
-        for (E element: elements) {
-            Node<E> newTail = new Node<>(element);
+    public void add(Trainee... trainees) {
+        for (Trainee trainee: trainees) {
+            Node<Trainee> newTail = new Node<>(trainee);
             if (head == null) {
                 head = newTail;
             } else {
@@ -38,8 +65,8 @@ public class WaitingList<E>  {
         }
     }
 
-    public void addToFront(E element) {
-        Node<E> node = new Node<>(element);
+    public void addToFront(Trainee element) {
+        Node<Trainee> node = new Node<>(element);
         node.setTail(head);
         head = node;
     }
@@ -52,7 +79,7 @@ public class WaitingList<E>  {
         if (head == null) {
             return 0;
         }
-        Node<E> node = head;
+        Node<Trainee> node = head;
         int size = 0;
         while(node != null) {
             size++;
@@ -61,13 +88,19 @@ public class WaitingList<E>  {
         return size;
     }
 
-    public static WaitingList getWaitingList() {
-        return waitingList;
+    public ArrayList<Trainee> toArrayList() {
+        ArrayList<Trainee> trainees = new ArrayList<>();
+        if (head != null) {
+            Node<Trainee> node = head;
+            while (node != null) {
+                trainees.add(node.getElement());
+                node = node.getTail();
+            }
+        }
+        return trainees;
     }
 
-    public static <T> WaitingList<T> generateWaitingList() {
-        WaitingList<T> waitingListGeneric = new WaitingList<T>();
-        waitingList = waitingListGeneric;
+    public static WaitingList getWaitingList() {
         return waitingList;
     }
 }
