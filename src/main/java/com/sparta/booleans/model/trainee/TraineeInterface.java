@@ -1,5 +1,7 @@
 package com.sparta.booleans.model.trainee;
 
+import com.sparta.booleans.model.CourseType;
+
 public interface TraineeInterface {
 
     void setTraineeId(int traineeId);
@@ -13,7 +15,7 @@ public interface TraineeInterface {
 
     public boolean isTraining();
     public void setTraining(boolean isTraining);
-    public  String getCourseType();
+    public CourseType getCourseType();
     public void setCourseType(String courseType);
 
     //Method for how long the trainee is waiting before training?

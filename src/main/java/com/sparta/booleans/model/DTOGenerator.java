@@ -5,6 +5,9 @@ import java.util.HashMap;
 import java.util.stream.Stream;
 
 import com.sparta.booleans.model.trainee.Trainee;
+import com.sparta.booleans.model.trainingCentre.Bootcamp;
+import com.sparta.booleans.model.trainingCentre.Hub;
+import com.sparta.booleans.model.trainingCentre.TechCentre;
 import com.sparta.booleans.model.trainingCentre.TrainingCentre;
 
 public class DTOGenerator {
@@ -46,7 +49,7 @@ public class DTOGenerator {
         HashMap<CourseType, Integer> traineeMap = new HashMap<>();
 
         for (CourseType course: CourseType.values()) {
-            long traineeCount = Stream.of(trainees)
+            long traineeCount = trainees.stream()
                     .filter(e -> e.getCourseType() == course)
                     .count();
             traineeMap.put(course, (int) traineeCount);
