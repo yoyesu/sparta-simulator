@@ -17,6 +17,6 @@ public class Hub extends TrainingCentre{
     // Methods
     @Override
     boolean shouldBeClosed() {
-        return false;
+        return currentTrainees.size() < 25;
     }
 }

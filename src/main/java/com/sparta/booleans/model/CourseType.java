@@ -12,6 +12,4 @@ public enum CourseType {
     CourseType (int intRandomAssigner) {
         this.intRandomAssigner = intRandomAssigner;
     }
-
-
 }

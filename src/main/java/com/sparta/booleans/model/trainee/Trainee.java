@@ -1,6 +1,7 @@
 package com.sparta.booleans.model.trainee;
 
 import com.sparta.booleans.model.CourseType;
+import com.sparta.booleans.utility.random.GenerateCourse;
 
 public class Trainee implements TraineeInterface {
 

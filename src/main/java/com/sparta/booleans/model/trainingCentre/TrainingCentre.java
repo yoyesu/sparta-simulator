@@ -11,7 +11,7 @@ public abstract class TrainingCentre {
     protected final int centreID;
     protected final int dateCreated;
     protected int monthlyIntake;
-    protected ArrayList <Trainee> currentTrainees;
+    protected ArrayList<Trainee> currentTrainees;
 
     // Constructor
     public TrainingCentre(int dateCreated, int centreID, int monthlyIntake) {
@@ -22,6 +22,7 @@ public abstract class TrainingCentre {
         this.centreID = centreID;
         this.monthlyIntake = monthlyIntake;
     }
+
     public TrainingCentre(int dateCreated, int centreID) {
 
         this.dateCreated = dateCreated;
@@ -31,16 +32,19 @@ public abstract class TrainingCentre {
     }
 
     // Getters
-    public int getCentreID()       {return centreID;}
-    public int getDateCreated()    {return dateCreated;}
-    public int getMonthlyIntake()  {return monthlyIntake;}
-    public ArrayList <Trainee> getCurrentTrainees() {
+    public int getCentreID()      {return centreID;}
+    public int getDateCreated()   {return dateCreated;}
+    public int getMonthlyIntake() {return monthlyIntake;}
+
+    public ArrayList<Trainee> getCurrentTrainees() {
 
         return new ArrayList<>(currentTrainees);
     }
 
     // Setters
-    public void setMonthlyIntake (int monthlyIntake) {this.monthlyIntake = monthlyIntake;}
+    public void setMonthlyIntake(int monthlyIntake) {
+        this.monthlyIntake = monthlyIntake;
+    }
 
     // Methods
     public boolean isFull() {
