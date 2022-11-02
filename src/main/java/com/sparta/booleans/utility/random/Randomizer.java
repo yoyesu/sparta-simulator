@@ -22,4 +22,10 @@ public class Randomizer {
         int newCentreIntake = random.nextInt(maxBound);
         return newCentreIntake;
     }
+
+    public static int getRandomCourse () {
+        Random random = new Random();
+        int newCourseType = random.nextInt(6);
+        return newCourseType;
+    }
 }
