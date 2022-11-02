@@ -1,7 +1,6 @@
-# Employee CSV Data Migration Project
+# Sparta Training Acadamy Simulator Project
 ![java_badge](https://img.shields.io/badge/-Java-lightgrey?style=for-the-badge&logo=appveyor)
 ![maven_badge](https://img.shields.io/badge/-Maven-yellow?style=for-the-badge&logo=appveyor)
-![sql_badge](https://img.shields.io/badge/-SQL-blue?style=for-the-badge&logo=appveyor)
 ![performance](https://img.shields.io/badge/-Performance-orange?style=for-the-badge&logo=appveyor)
 
 **Developed by Maria, Will, Max, Ricardo, Justin, John, Mohamed, Gurjeev, and Lucas**
