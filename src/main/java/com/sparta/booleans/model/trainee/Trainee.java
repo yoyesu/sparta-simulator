@@ -1,5 +1,7 @@
 package com.sparta.booleans.model.trainee;
 
+import com.sparta.booleans.model.CourseType;
+
 public class Trainee implements TraineeInterface {
 
     private int traineeId;
@@ -7,7 +9,7 @@ public class Trainee implements TraineeInterface {
     private int monthCreated;
     private int startTrainingMonth;
 
-    private String courseType;
+    private CourseType courseType;
 
 
     public Trainee(int traineeId, int monthCreated) {
@@ -15,8 +17,8 @@ public class Trainee implements TraineeInterface {
         this.monthCreated = monthCreated;
         this.isTraining = false;
         this.startTrainingMonth = -1;
-        this.courseType = courseType;
-
+        GenerateCourse generateCourse = new GenerateCourse();
+        this.courseType = generateCourse.generateCourse(courseType);
     }
 
     @Override
@@ -57,7 +59,12 @@ public class Trainee implements TraineeInterface {
         this.startTrainingMonth = startTrainingMonth;
     }
 
-    public String getCourseType() { return courseType;}
+    public CourseType getCourseType() { return courseType;}
 
-    public void setCourseType(String courseType) {this.courseType = courseType;}
+    @Override
+    public void setCourseType(String courseType) {
+        
+    }
+
+    public void setCourseType(CourseType courseType) {this.courseType = courseType;}
 }
