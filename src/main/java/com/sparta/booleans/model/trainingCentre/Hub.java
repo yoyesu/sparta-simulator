@@ -6,17 +6,15 @@ public class Hub extends TrainingCentre{
     public Hub(int dateCreated, int centreID) {
 
         super(dateCreated, centreID);
-        capacity = 100;
     }
     public Hub(int dateCreated, int centreID, int monthlyIntake) {
 
         super(dateCreated, centreID, monthlyIntake);
-        capacity = 100;
     }
 
     // Methods
     @Override
-    boolean shouldBeClosed() {
+    public boolean shouldBeClosed() {
         return currentTrainees.size() < 25;
     }
 }

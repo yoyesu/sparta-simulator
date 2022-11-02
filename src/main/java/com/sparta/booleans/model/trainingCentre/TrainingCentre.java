@@ -12,6 +12,7 @@ public abstract class TrainingCentre {
     protected final int dateCreated;
     protected int monthlyIntake;
     protected ArrayList<Trainee> currentTrainees;
+    protected boolean isClosed;
 
     // Constructor
     public TrainingCentre(int dateCreated, int centreID, int monthlyIntake) {
@@ -21,6 +22,7 @@ public abstract class TrainingCentre {
         this.currentTrainees = new ArrayList<>();
         this.centreID = centreID;
         this.monthlyIntake = monthlyIntake;
+        this.isClosed = false;
     }
 
     public TrainingCentre(int dateCreated, int centreID) {
@@ -29,12 +31,15 @@ public abstract class TrainingCentre {
         this.capacity = 100;
         this.currentTrainees = new ArrayList<>();
         this.centreID = centreID;
+        this.isClosed = false;
     }
 
     // Getters
     public int getCentreID()      {return centreID;}
     public int getDateCreated()   {return dateCreated;}
     public int getMonthlyIntake() {return monthlyIntake;}
+    public int getCapacity()      {return capacity;}
+    public boolean getIsClosed()  {return isClosed;}
 
     public ArrayList<Trainee> getCurrentTrainees() {
 
@@ -42,9 +47,8 @@ public abstract class TrainingCentre {
     }
 
     // Setters
-    public void setMonthlyIntake(int monthlyIntake) {
-        this.monthlyIntake = monthlyIntake;
-    }
+    public void setMonthlyIntake (int monthlyIntake) {this.monthlyIntake = monthlyIntake;}
+    public void setIsClosed      (boolean closed)    {isClosed = closed;}
 
     // Methods
     public boolean isFull() {
@@ -74,5 +78,5 @@ public abstract class TrainingCentre {
         return currentMonth - dateCreated;
     }
 
-    abstract boolean shouldBeClosed();
+    abstract public boolean shouldBeClosed();
 }

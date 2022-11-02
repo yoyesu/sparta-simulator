@@ -12,10 +12,12 @@ public class TechCentre extends TrainingCentre{
     public TechCentre(int dateCreated, int centreID, int monthlyIntake) {
         super(dateCreated, centreID, monthlyIntake);
         courseType = GenerateCourse.generateCourse();
+        capacity = 200;
     }
     public TechCentre(int dateCreated, int centreID) {
         super(dateCreated, centreID);
         courseType = GenerateCourse.generateCourse();
+        capacity = 200;
     }
 
     // Getter
@@ -23,7 +25,7 @@ public class TechCentre extends TrainingCentre{
 
     // Methods
     @Override
-    boolean shouldBeClosed() {
+    public boolean shouldBeClosed() {
         return currentTrainees.size() < 25;
     }
 }
