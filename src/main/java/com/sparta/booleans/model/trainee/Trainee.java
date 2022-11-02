@@ -7,11 +7,16 @@ public class Trainee implements TraineeInterface {
     private int monthCreated;
     private int startTrainingMonth;
 
+    private String courseType;
+
+
     public Trainee(int traineeId, int monthCreated) {
         this.traineeId = traineeId;
         this.monthCreated = monthCreated;
         this.isTraining = false;
         this.startTrainingMonth = -1;
+        this.courseType = courseType;
+
     }
 
     @Override
@@ -28,27 +33,31 @@ public class Trainee implements TraineeInterface {
     public boolean isTraining() {
         return isTraining;
     }
-@Override
+
+    @Override
     public void setTraining(boolean isTraining) {
         this.isTraining = isTraining;
     }
-
     @Override
     public int getMonthCreated() {
         return monthCreated;
     }
-@Override
+
+    @Override
     public void setMonthCreated(int monthCreated) {
         this.monthCreated = monthCreated;
     }
-
     @Override
     public int getStartTrainingMonth() {
         return startTrainingMonth;
     }
-@Override
+
+    @Override
     public void setStartTrainingMonth(int startTrainingMonth) {
         this.startTrainingMonth = startTrainingMonth;
     }
 
+    public String getCourseType() { return courseType;}
+
+    public void setCourseType(String courseType) {this.courseType = courseType;}
 }
