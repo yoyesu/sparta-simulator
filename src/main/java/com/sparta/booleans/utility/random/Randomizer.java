@@ -28,4 +28,10 @@ public class Randomizer {
         int newCourseType = random.nextInt(6);
         return newCourseType;
     }
+
+    public static int getRandomCentre () {
+        Random random = new Random();
+        int newCentreType = random.nextInt(3);
+        return newCentreType;
+    }
 }
