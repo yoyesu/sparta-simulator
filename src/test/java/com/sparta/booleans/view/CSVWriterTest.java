@@ -71,28 +71,26 @@ class CSVWriterTest {
 
         writer.writeToFile();
 
-        String expected = "Total Months,JAVA Trainees Waiting,JAVA Trainees Training,CSHARP Trainees Waiting,CSHARP Trainees Training,DATA Trainees Waiting,DATA Trainees Training,DEVOPS Trainees Waiting,DEVOPS Trainees Training,BUSINESS Trainees Waiting,BUSINESS Trainees Training,TECH_CENTRES Open,TECH_CENTRES Closed,TECH_CENTRES Full,BOOTCAMPS Open,BOOTCAMPS Closed,BOOTCAMPS Full,TRAINING_HUBS Open,TRAINING_HUBS Closed,TRAINING_HUBS Full\n" +
-                "12,20,20,50,50,30,30,40,40,10,10,20,20,20,10,10,10,30,30,30";
+        List<String> expected = new ArrayList<>(List.of("Total Months,JAVA Trainees Waiting,JAVA Trainees Training,CSHARP Trainees Waiting,CSHARP Trainees Training,DATA Trainees Waiting,DATA Trainees Training,DEVOPS Trainees Waiting,DEVOPS Trainees Training,BUSINESS Trainees Waiting,BUSINESS Trainees Training,TECH_CENTRES Open,TECH_CENTRES Closed,TECH_CENTRES Full,BOOTCAMPS Open,BOOTCAMPS Closed,BOOTCAMPS Full,TRAINING_HUBS Open,TRAINING_HUBS Closed,TRAINING_HUBS Full",
+                "12,20,20,50,50,30,30,40,40,10,10,20,20,20,10,10,10,30,30,30"));
 
-
+        Assertions.assertEquals(expected, CSVReader(CSV_FILE_NAME));
 
     }
 
-    private void CSVReader(String CSV_FILE_NAME) {
-        String line = "";
-        List<String> values = new ArrayList<>();
-        try (BufferedReader reader = new BufferedReader (new FileReader(CSV_FILE_NAME))){
-            while ((line = reader.readLine()) != null){
-                line += line;
-                System.out.println(line);
+    private List<String> CSVReader(String CSV_FILE_NAME) {
+        List<String> lines = new ArrayList<>();
+        try (FileReader fileReader = new FileReader(CSV_FILE_NAME);
+             BufferedReader bufferedReader = new BufferedReader(fileReader)) {
+
+            while (bufferedReader.ready()) {
+                lines.add(bufferedReader.readLine());
+
             }
-
-
+            return lines;
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-
-
     }
 
     @Test
