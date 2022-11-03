@@ -15,13 +15,9 @@ public class Client {
     private boolean isActive;
 
     //getters for client
-    public int getClientID() {
-        return clientID;
-    }
-
+    public int getClientID()     {return clientID;}
     public int getMonthCreated() {return monthCreated;}
-
-    public boolean isActive() {return isActive;}
+    public boolean isActive()    {return isActive;}
 
     Client (int clientID, int monthCreated) {
         this.clientID = clientID;
@@ -31,10 +27,10 @@ public class Client {
         traineesAssigned = new ArrayList<>();
     }
 
-    private void generateRequirement(int requirementID, int monthCreated) {
+    private void generateRequirement(int requirementID, int monthCreated, int bound) {
 
         Random random = new Random();
-        int clientTraineesRequired = random.nextInt(15,101);
+        int clientTraineesRequired = random.nextInt(15,bound);
 
         Requirement requirement = new Requirement(Randomizer.generateCourse(),
                                 clientTraineesRequired,
@@ -43,23 +39,24 @@ public class Client {
         requiredSkills.add(requirement);
     }
 
-    public boolean shouldLeave(int currentMonth) {
+    public boolean shouldLeave() {
 
         int totalVacancies = 0;
 
         for(int i = 0; i < requiredSkills.size(); i++)
             totalVacancies += requiredSkills.get(i).getTraineesVacancies();
 
-        if(currentMonth-monthCreated > 12)
-            if(traineesAssigned.size() < totalVacancies)
-                return true;
-
+        if(traineesAssigned.size() < totalVacancies) {
+            isActive = false;
+            return true;
+        }
         return false;
     }
 
-    public ArrayList<Trainee> getTraineesAssigned() {return new ArrayList<>(traineesAssigned);}
+    public ArrayList <Trainee>     getTraineesAssigned() {return new ArrayList<>(traineesAssigned);}
+    public ArrayList <Requirement> getRequiredSkills()   {return requiredSkills;}
 
-    public void addTrainee(Trainee trainee) {
+    public void assignTrainee(Trainee trainee) {
 
         traineesAssigned.add(trainee);
     }
