@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 public class WaitingListTest {
 
-    private WaitingList waitingList = WaitingList.getWaitingList();
+    private WaitingList waitingList = new WaitingList();
 
     private static Trainee[] getTraineeArray() {
         ArrayList<Trainee> trainees = new ArrayList<>();
@@ -93,11 +93,4 @@ public class WaitingListTest {
         waitingList.add(trainees);
         Assertions.assertArrayEquals(trainees, waitingList.toArrayList().toArray());
     }
-
-    @Test
-    @DisplayName("Test that the WaitingList constructor is private so no objects of it can be created.")
-    void testConstructorIsPrivate() throws NoSuchMethodException {
-        Assertions.assertEquals(Modifier.PRIVATE, WaitingList.class.getDeclaredConstructor().getModifiers());
-    }
-
 }
