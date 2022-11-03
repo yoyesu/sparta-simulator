@@ -2,6 +2,8 @@ package com.sparta.booleans.controller;
 
 import com.sparta.booleans.exceptions.CapacityExceededException;
 import com.sparta.booleans.exceptions.TraineeNotFoundException;
+import com.sparta.booleans.model.Client.Client;
+import com.sparta.booleans.model.Client.Requirement;
 import com.sparta.booleans.model.DTOGenerator;
 import com.sparta.booleans.model.MappedDTO;
 import com.sparta.booleans.model.trainee.Trainee;
@@ -15,6 +17,8 @@ public class Simulator {
 
     private static int traineeID = 1;
     private static int centreID = 1;
+    private static int clientID = 1;
+    private static int requirementID = 1;
     private static int month = -1;
 
     private static WaitingList waitingList = new WaitingList();
@@ -126,15 +130,15 @@ public class Simulator {
     }
 
     private static void createClientAndRequirements() {
-        if (month % 12 == 0 && month != 0) {
-            clients.add(new Client());
-            //add requirement every 12 month
-            //check if client is happy after 12 months
+        if (month % 11 == 0 && month != 0) {
             for(Client client : clients){
-                if(client.IsActive()) {
-
+                if(client.isActive() && !client.shouldLeave()) {
+                    client.renewRequirement(requirementID++, month);
                 }
             }
+            Client client = new Client(clientID++, month);
+            client.generateRequirement(requirementID++, month, benchedList.getSize());
+            clients.add(client);
         }
     }
 
@@ -146,22 +150,22 @@ public class Simulator {
                     benchedList.add(trainee);
                 }
             }
-
         }
     }
 
     private static void assignBenchedToClient() {
         //check if client happy before adding more benched trainees
         for (Client client : clients) {
-            if(client.IsActive()) {
+            if(client.isActive()) {
                 for (Requirement req : client.getRequiredSkills()) {
                     int countToRecruit = Randomizer.getRandomAssignedCount(req.getNumberOfConsultants());
-                    if (countToRecruit > req.get()) {
-                        countToRecruit = req.get();
+                    if (countToRecruit > req.getTraineesVacancies()) {
+                        countToRecruit = req.getTraineesVacancies();
                     }
                     for (int i = 0; i < countToRecruit; i++) {
                         try {
                             client.assignTrainee(benchedList.pollType(req.getRequirementType()));
+                            req.reduceAvailableSpace();
                         } catch (TraineeNotFoundException e) {
                             break;
                         }
