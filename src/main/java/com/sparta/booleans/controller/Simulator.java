@@ -131,7 +131,9 @@ public class Simulator {
             //add requirement every 12 month
             //check if client is happy after 12 months
             for(Client client : clients){
+                if(client.IsActive()) {
 
+                }
             }
         }
     }
@@ -151,16 +153,18 @@ public class Simulator {
     private static void assignBenchedToClient() {
         //check if client happy before adding more benched trainees
         for (Client client : clients) {
-            for (Requirement req : client.getRequiredSkills()) {
-                int countToRecruit = Randomizer.getRandomAssignedCount(req.getNumberOfConsultants());
-                if (countToRecruit > req.get()) {
-                    countToRecruit = req.get();
-                }
-                for (int i = 0; i < countToRecruit; i++) {
-                    try {
-                        client.assignTrainee(benchedList.pollType(req.getRequirementType()));
-                    } catch (TraineeNotFoundException e) {
-                        break;
+            if(client.IsActive()) {
+                for (Requirement req : client.getRequiredSkills()) {
+                    int countToRecruit = Randomizer.getRandomAssignedCount(req.getNumberOfConsultants());
+                    if (countToRecruit > req.get()) {
+                        countToRecruit = req.get();
+                    }
+                    for (int i = 0; i < countToRecruit; i++) {
+                        try {
+                            client.assignTrainee(benchedList.pollType(req.getRequirementType()));
+                        } catch (TraineeNotFoundException e) {
+                            break;
+                        }
                     }
                 }
             }
