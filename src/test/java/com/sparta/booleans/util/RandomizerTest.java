@@ -9,8 +9,6 @@ import org.junit.jupiter.api.Test;
 
 public class RandomizerTest {
 
-    private int maxBound = 100;
-
     @Test
     @DisplayName("Testing getRandomTrainees method returns integer between 50 & 100")
     public void testGetRandomTrainees() {
@@ -39,6 +37,7 @@ public class RandomizerTest {
         int i = 100;
         while (i!=0) {
 //            System.out.println(Randomizer.getRandomCentreIntake(maxBound));
+            int maxBound = 100;
             Assertions.assertTrue(Randomizer.getRandomCentreIntake(maxBound) <= maxBound);
             i--;
         }
@@ -47,19 +46,21 @@ public class RandomizerTest {
     @Test
     @DisplayName("Testing generateCourse method returns CourseType")
     public void testGenerateCourse() {
-//        int i = 100;
-//        while (i != 0) {
+        int i = 100;
+        while (i != 0) {
         System.out.println(Randomizer.generateCourse());
 
-        Assertions.assertTrue(Randomizer.generateCourse() == CourseType.JAVA ||
-                Randomizer.generateCourse() == CourseType.CSHARP ||
-                Randomizer.generateCourse() == CourseType.BUSINESS ||
-                Randomizer.generateCourse() == CourseType.DATA ||
-                Randomizer.generateCourse() == CourseType.DEVOPS
+        CourseType type = Randomizer.generateCourse();
+
+        Assertions.assertTrue(CourseType.JAVA.equals(type) ||
+                CourseType.CSHARP.equals(type) ||
+                CourseType.BUSINESS.equals(type) ||
+                CourseType.DATA.equals(type) ||
+                CourseType.DEVOPS.equals(type)
         );
-////
-//            i--;
-////            Assertions.assertThrows(CourseTypeNotFound.class, Randomizer::generateCourse);
-//        }
+
+            i--;
+//          Assertions.assertThrows(CourseTypeNotFound.class, Randomizer::generateCourse);
+        }
     }
 }
