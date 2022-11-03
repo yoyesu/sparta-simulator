@@ -20,15 +20,13 @@ public class Simulator {
     private static int traineeID = 1;
     private static int centreID = 1;
     private static int month = -1;
-    private static int numberOfBootcamps = 0;
     private static WaitingList waitingList = WaitingList.getWaitingList();
     private static ArrayList<TrainingCentre> trainingCentres = new ArrayList<>();
 
     public static MappedDTO runSimulation(int months) {
-
-
         for (int i = 0; i < months; i++) {
             month++;
+            System.out.println("Month: " + month);
 
             Trainee[] trainees = generateTrainees(month);
             waitingList.add(trainees);
@@ -42,6 +40,7 @@ public class Simulator {
             int centerIndex = 0;
             while (totalIntake > 0) {
                 TrainingCentre centre = trainingCentres.get(centerIndex);
+                System.out.println(centerIndex + " " + waitingList.getSize() + " " + centre.getMonthlyIntake());
                 if (waitingList.getSize() > 0) {
                     if (centre.getMonthlyIntake() > 0 && !centre.isFull() && !centre.getIsClosed()) {
                         Trainee trainee = waitingList.peek();
@@ -59,6 +58,8 @@ public class Simulator {
                         } catch (CapacityExceededException e) {
                             waitingList.addToFront(trainee);
                         } catch (TraineeNotFoundException e) {
+                            totalIntake -= centre.getMonthlyIntake();
+                            centre.setMonthlyIntake(0);
                         }
                     }
                     centerIndex++;
@@ -95,7 +96,7 @@ public class Simulator {
     private static int generateTrainingCentreMonthlyIntake() {
         int totalIntake = 0;
         for (TrainingCentre centre : trainingCentres) {
-            if (!centre.isFull()) {
+            if (!centre.isFull() && !centre.getIsClosed()) {
                 int monthlyIntake = Randomizer.getRandomCentreIntake();
                 if (monthlyIntake > centre.getVacancies()) {
                     monthlyIntake = centre.getVacancies();
@@ -111,7 +112,7 @@ public class Simulator {
 
     private static void closeTrainingCentres() {
         for (TrainingCentre centre : trainingCentres) {
-            if (centre.shouldBeClosed()) {
+            if (centre.shouldBeClosed(month)) {
                 for (Trainee trainee : centre.getCurrentTrainees()) {
                     waitingList.add(trainee);
                 }

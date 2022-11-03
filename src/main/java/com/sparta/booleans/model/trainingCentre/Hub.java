@@ -14,7 +14,7 @@ public class Hub extends TrainingCentre{
 
     // Methods
     @Override
-    public boolean shouldBeClosed() {
-        return currentTrainees.size() < 25;
+    public boolean shouldBeClosed(int month) {
+        return currentTrainees.size() < 25 && month > dateCreated;
     }
 }

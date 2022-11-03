@@ -78,5 +78,5 @@ public abstract class TrainingCentre {
         return currentMonth - dateCreated;
     }
 
-    abstract public boolean shouldBeClosed();
+    abstract public boolean shouldBeClosed(int month);
 }

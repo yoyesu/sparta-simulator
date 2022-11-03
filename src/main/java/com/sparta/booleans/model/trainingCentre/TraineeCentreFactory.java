@@ -8,11 +8,11 @@ public class TraineeCentreFactory {
 
     static public TrainingCentre createTrainingCentre(int dateCreated, int centreID) {
 
-        switch (new Random().nextInt(4)) {
+        switch (new Random().nextInt(3)) {
 
-            case 1 -> {return new Hub(dateCreated, centreID);}
-            case 2 -> {return new TechCentre(dateCreated, centreID);}
-            case 3 -> {
+            case 0 -> {return new Hub(dateCreated, centreID);}
+            case 1 -> {return new TechCentre(dateCreated, centreID);}
+            case 2 -> {
                 if(bootCampCount < 2) {
                     bootCampCount++;
                     return new Bootcamp(dateCreated, centreID);

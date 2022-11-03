@@ -18,7 +18,7 @@ public class Bootcamp extends TrainingCentre{
 
     // Methods
     @Override
-    public boolean shouldBeClosed() {
+    public boolean shouldBeClosed(int month) {
 
         if(currentTrainees.size() < 25) lowAttendanceMonthsCounter++;
         else lowAttendanceMonthsCounter = 0;

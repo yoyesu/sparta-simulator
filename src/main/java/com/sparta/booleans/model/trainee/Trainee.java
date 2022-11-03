@@ -1,7 +1,7 @@
 package com.sparta.booleans.model.trainee;
 
 import com.sparta.booleans.model.CourseType;
-import com.sparta.booleans.utility.random.GenerateCourse;
+import com.sparta.booleans.utility.random.Randomizer;
 
 public class Trainee implements TraineeInterface {
 
@@ -18,7 +18,7 @@ public class Trainee implements TraineeInterface {
         this.monthCreated = monthCreated;
         this.isTraining = false;
         this.startTrainingMonth = -1;
-        this.courseType = GenerateCourse.generateCourse();
+        this.courseType = Randomizer.generateCourse();
     }
 
     @Override

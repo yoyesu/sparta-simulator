@@ -1,6 +1,7 @@
 package com.sparta.booleans.controller;
 
 import com.sparta.booleans.model.DTO;
+import com.sparta.booleans.model.MappedDTO;
 import com.sparta.booleans.utility.logging.CustomLoggerConfiguration;
 import com.sparta.booleans.view.CSVWriter;
 import com.sparta.booleans.view.OutputToConsole;
@@ -24,15 +25,15 @@ public class Starter {
 
         TimeFrameInputter imputter = new TimeFrameInputter();
 
-        DTO currentDTO = Simulator.runSimulation(imputter.getTotalMonths());
+        MappedDTO currentDTO = Simulator.runSimulation(imputter.getTotalMonths());
 
         logger.log(Level.INFO, " The simulation has completed");
 
         CSVWriter writer = new CSVWriter();
         OutputToConsole outputter = new OutputToConsole();
 
-        outputter.sendOutput(currentDTO);
-        writer.sendOutput(currentDTO);
+//        outputter.sendOutput(currentDTO);
+//        writer.sendOutput(currentDTO);
         writer.writeToFile();
 
         logger.log(Level.INFO, " The CSV Report is ready in the resources folder");
