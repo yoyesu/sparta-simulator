@@ -128,7 +128,7 @@ Trello was the kanban board of choice as it provided a useful user-friendly inte
 Below is an image of Boo-Leans' kanban board:
 
 ![trello board](https://user-images.githubusercontent.com/115146708/199549971-900da146-3f70-41a0-9ff5-6079c3543509.png)
-<<<<<<< HEAD
+
 
 Acceptance criteria were written on each user story card and reviewed together as a group.
 Boo-Leans used planning poker to agree on the level of difficulty of each user story before being commissioned.
