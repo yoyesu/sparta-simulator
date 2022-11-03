@@ -2,19 +2,14 @@ package com.sparta.booleans.controller;
 
 import com.sparta.booleans.exceptions.CapacityExceededException;
 import com.sparta.booleans.exceptions.TraineeNotFoundException;
-import com.sparta.booleans.model.DTO;
 import com.sparta.booleans.model.DTOGenerator;
 import com.sparta.booleans.model.MappedDTO;
 import com.sparta.booleans.model.trainee.Trainee;
-import com.sparta.booleans.model.trainee.TraineeInterface;
 import com.sparta.booleans.model.trainingCentre.*;
 import com.sparta.booleans.model.waitinglist.WaitingList;
 import com.sparta.booleans.utility.random.Randomizer;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Calendar;
-import java.util.HashSet;
 
 public class Simulator {
 
@@ -31,18 +26,13 @@ public class Simulator {
         for (int i = 0; i < months; i++) {
             month++;
 
-
             handleClients();
 
             Trainee[] trainees = generateTrainees(month);
             waitingList.add(trainees);
 
             generateTrainingCentre();
-
             closeTrainingCentres();
-
-
-            //before
 
             int totalIntake = generateTrainingCentreMonthlyIntake();
 
@@ -81,7 +71,6 @@ public class Simulator {
         }
         return DTOGenerator.generateDTO(month + 1, waitingList.toArrayList(), trainingCentres);
     }
-
 
     private static Trainee[] generateTrainees(int month) {
         Trainee[] trainees = new Trainee[Randomizer.getRandomTrainees()];
@@ -132,13 +121,18 @@ public class Simulator {
 
     private static void handleClients() {
         benchTrainees();
-        createClient();
+        createClientAndRequirements();
         assignBenchedToClient();
     }
 
-    private static void createClient() {
+    private static void createClientAndRequirements() {
         if (month % 12 == 0 && month != 0) {
             clients.add(new Client());
+            //add requirement every 12 month
+            //check if client is happy after 12 months
+            for(Client client : clients){
+
+            }
         }
     }
 
@@ -155,12 +149,19 @@ public class Simulator {
     }
 
     private static void assignBenchedToClient() {
+        //check if client happy before adding more benched trainees
         for (Client client : clients) {
             for (Requirement req : client.getRequiredSkills()) {
                 int countToRecruit = Randomizer.getRandomAssignedCount(req.getNumberOfConsultants());
-
+                if (countToRecruit > req.get()) {
+                    countToRecruit = req.get();
+                }
                 for (int i = 0; i < countToRecruit; i++) {
-
+                    try {
+                        client.assignTrainee(benchedList.pollType(req.getRequirementType()));
+                    } catch (TraineeNotFoundException e) {
+                        break;
+                    }
                 }
             }
         }
