@@ -65,6 +65,10 @@ class CSVWriterTest {
 
         writer.writeToFile();
 
+        String expected = "Total Months,JAVA Trainees Waiting,JAVA Trainees Training,CSHARP Trainees Waiting,CSHARP Trainees Training,DATA Trainees Waiting,DATA Trainees Training,DEVOPS Trainees Waiting,DEVOPS Trainees Training,BUSINESS Trainees Waiting,BUSINESS Trainees Training,TECH_CENTRES Open,TECH_CENTRES Closed,TECH_CENTRES Full,BOOTCAMPS Open,BOOTCAMPS Closed,BOOTCAMPS Full,TRAINING_HUBS Open,TRAINING_HUBS Closed,TRAINING_HUBS Full\n" +
+                "12,20,20,50,50,30,30,40,40,10,10,20,20,20,10,10,10,30,30,30";
+
+
     }
 
     @Test
