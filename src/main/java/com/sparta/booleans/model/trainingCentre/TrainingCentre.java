@@ -2,7 +2,10 @@ package com.sparta.booleans.model.trainingCentre;
 
 import com.sparta.booleans.exceptions.CapacityExceededException;
 import com.sparta.booleans.model.trainee.Trainee;
+
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Queue;
 
 public abstract class TrainingCentre {
 
@@ -79,4 +82,9 @@ public abstract class TrainingCentre {
     }
 
     abstract public boolean shouldBeClosed(int month);
+
+    public void benchTrainee(Trainee trainee){
+        currentTrainees.remove(trainee);
+
+    }
 }

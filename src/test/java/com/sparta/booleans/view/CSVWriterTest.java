@@ -1,22 +1,25 @@
 package com.sparta.booleans.view;
 
-import com.sparta.booleans.controller.App;
-import com.sparta.booleans.controller.Starter;
-import com.sparta.booleans.model.DTO;
+import com.sparta.booleans.model.CourseType;
+
+import com.sparta.booleans.model.MappedDTO;
+import com.sparta.booleans.model.TrainingCentreType;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.ValueSource;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.HashMap;
 
 class CSVWriterTest {
 
-    static DTO sample1 = new DTO();
-    static DTO sample2 = new DTO();
-    static DTO sample3 = new DTO();
+    HashMap<CourseType, Integer> traineesWaiting = new HashMap<>();
+    HashMap<CourseType, Integer> traineesTraining = new HashMap<>();
+    HashMap<TrainingCentreType, Integer> openCentres = new HashMap<>();
+    HashMap<TrainingCentreType, Integer> closedCentres = new HashMap<>();
+    HashMap<TrainingCentreType, Integer> fullCentres = new HashMap<>();
+
+    MappedDTO sample;
+
+
 
     CSVWriter writer = new CSVWriter();
 
@@ -24,40 +27,47 @@ class CSVWriterTest {
     @BeforeEach
     void setup() {
 
-        Starter starter = new Starter();
-        starter.start();
+        traineesWaiting.put(CourseType.BUSINESS, 10);
+        traineesWaiting.put(CourseType.JAVA, 20);
+        traineesWaiting.put(CourseType.DATA, 30);
+        traineesWaiting.put(CourseType.DEVOPS, 40);
+        traineesWaiting.put(CourseType.CSHARP, 50);
 
-        sample1.setTotalMonths(15);
-        sample1.setFullCentres(11);
-        sample1.setOpenCentres(14);
-        sample1.setTotalTrainees(280);
-        sample1.setWaitingTrainees(49);
+        traineesTraining.put(CourseType.BUSINESS, 10);
+        traineesTraining.put(CourseType.JAVA, 20);
+        traineesTraining.put(CourseType.DATA, 30);
+        traineesTraining.put(CourseType.DEVOPS, 40);
+        traineesTraining.put(CourseType.CSHARP, 50);
+
+        openCentres.put(TrainingCentreType.BOOTCAMP, 10);
+        openCentres.put(TrainingCentreType.TECH_CENTRE, 20);
+        openCentres.put(TrainingCentreType.TRAINING_HUB, 30);
+
+        closedCentres.put(TrainingCentreType.BOOTCAMP, 10);
+        closedCentres.put(TrainingCentreType.TECH_CENTRE, 20);
+        closedCentres.put(TrainingCentreType.TRAINING_HUB, 30);
+
+        fullCentres.put(TrainingCentreType.BOOTCAMP, 10);
+        fullCentres.put(TrainingCentreType.TECH_CENTRE, 20);
+        fullCentres.put(TrainingCentreType.TRAINING_HUB, 30);
 
 
-        sample2.setTotalMonths(12);
-        sample2.setFullCentres(8);
-        sample2.setOpenCentres(16);
-        sample2.setTotalTrainees(300);
-        sample2.setWaitingTrainees(56);
+        sample = new MappedDTO(12, traineesWaiting, traineesTraining, openCentres, closedCentres, fullCentres);
 
-
-        sample3.setTotalMonths(13);
-        sample3.setFullCentres(9);
-        sample3.setOpenCentres(17);
-        sample3.setTotalTrainees(150);
-        sample3.setWaitingTrainees(38);
 
     }
 
 
     @Test
-    void sendOutput() {
+    void testSendOutput() {
 
-        writer.sendOutput(sample1);
-        writer.sendOutput(sample2);
-        writer.sendOutput(sample3);
+        writer.sendOutput(sample);
 
         writer.writeToFile();
 
+    }
+
+    @Test
+    void writeToFile() {
     }
 }
