@@ -41,4 +41,9 @@ public class Randomizer {
             default -> throw new CourseTypeNotFound();
         }
     }
+
+    public static int getRandomAssignedCount(int requirementCount){
+        Random random = new Random();
+        return random.nextInt(1, requirementCount);
+    }
 }

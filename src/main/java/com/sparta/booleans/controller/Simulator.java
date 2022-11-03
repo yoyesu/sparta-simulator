@@ -14,18 +14,25 @@ import com.sparta.booleans.utility.random.Randomizer;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.HashSet;
 
 public class Simulator {
 
     private static int traineeID = 1;
     private static int centreID = 1;
     private static int month = -1;
-    private static WaitingList waitingList = WaitingList.getWaitingList();
+
+    private static WaitingList waitingList = new WaitingList();
+    private static WaitingList benchedList = new WaitingList();
     private static ArrayList<TrainingCentre> trainingCentres = new ArrayList<>();
+    private static ArrayList<Client> clients = new ArrayList<Client>();
 
     public static MappedDTO runSimulation(int months) {
         for (int i = 0; i < months; i++) {
             month++;
+
+
+            handleClients();
 
             Trainee[] trainees = generateTrainees(month);
             waitingList.add(trainees);
@@ -33,6 +40,9 @@ public class Simulator {
             generateTrainingCentre();
 
             closeTrainingCentres();
+
+
+            //before
 
             int totalIntake = generateTrainingCentreMonthlyIntake();
 
@@ -71,6 +81,7 @@ public class Simulator {
         }
         return DTOGenerator.generateDTO(month + 1, waitingList.toArrayList(), trainingCentres);
     }
+
 
     private static Trainee[] generateTrainees(int month) {
         Trainee[] trainees = new Trainee[Randomizer.getRandomTrainees()];
@@ -115,6 +126,42 @@ public class Simulator {
                     waitingList.add(trainee);
                 }
                 centre.setIsClosed(true);
+            }
+        }
+    }
+
+    private static void handleClients() {
+        benchTrainees();
+        createClient();
+        assignBenchedToClient();
+    }
+
+    private static void createClient() {
+        if (month % 12 == 0 && month != 0) {
+            clients.add(new Client());
+        }
+    }
+
+    private static void benchTrainees() {
+        for (TrainingCentre trainingCentre : trainingCentres) {
+            for (Trainee trainee : trainingCentre.getCurrentTrainees()) {
+                if (trainee.getStartTrainingMonth() - month > 12) {
+                    trainingCentre.benchTrainee(trainee);
+                    benchedList.add(trainee);
+                }
+            }
+
+        }
+    }
+
+    private static void assignBenchedToClient() {
+        for (Client client : clients) {
+            for (Requirement req : client.getRequiredSkills()) {
+                int countToRecruit = Randomizer.getRandomAssignedCount(req.getNumberOfConsultants());
+
+                for (int i = 0; i < countToRecruit; i++) {
+
+                }
             }
         }
     }
