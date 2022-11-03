@@ -26,7 +26,6 @@ public class Simulator {
     public static MappedDTO runSimulation(int months) {
         for (int i = 0; i < months; i++) {
             month++;
-            System.out.println("Month: " + month);
 
             Trainee[] trainees = generateTrainees(month);
             waitingList.add(trainees);
@@ -40,7 +39,6 @@ public class Simulator {
             int centerIndex = 0;
             while (totalIntake > 0) {
                 TrainingCentre centre = trainingCentres.get(centerIndex);
-                System.out.println(centerIndex + " " + waitingList.getSize() + " " + centre.getMonthlyIntake());
                 if (waitingList.getSize() > 0) {
                     if (centre.getMonthlyIntake() > 0 && !centre.isFull() && !centre.getIsClosed()) {
                         Trainee trainee = waitingList.peek();
@@ -71,7 +69,7 @@ public class Simulator {
                 }
             }
         }
-        return DTOGenerator.generateDTO(month, waitingList.toArrayList(), trainingCentres);
+        return DTOGenerator.generateDTO(month + 1, waitingList.toArrayList(), trainingCentres);
     }
 
     private static Trainee[] generateTrainees(int month) {
