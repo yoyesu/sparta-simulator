@@ -6,6 +6,8 @@ import com.sparta.booleans.model.TrainingCentreType;
 import com.sparta.booleans.utility.logging.CustomLoggerConfiguration;
 
 import java.io.*;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -15,8 +17,15 @@ public class CSVWriter implements OutputInterface {
 
     public Logger logger = CustomLoggerConfiguration.myLogger;
 
-    private static final String CSV_FILE_NAME = "src/main/resources/simulation_report.csv";
-    private static final List<List<String>> simulationOutputs = new ArrayList<>(new ArrayList<>());
+    private String CSV_FILE_NAME;
+    private final List<List<String>> simulationOutputs = new ArrayList<>(new ArrayList<>());
+
+    public CSVWriter() {
+        LocalDateTime time = LocalDateTime.now();
+        this.CSV_FILE_NAME = "src/main/resources/simulation_report("
+                + time.format(DateTimeFormatter.ofPattern("YYYY-MM-dd_HH-mm-ss-SS"))
+                + ").csv";
+    }
 
     @Override
     public void sendOutput(MappedDTO simulationData) {
@@ -75,15 +84,15 @@ public class CSVWriter implements OutputInterface {
     }
 
     private String produceHeader() {
-        String header = "Total Months,";
+        String header = "Total_Months,";
         for (CourseType type: CourseType.values()) {
-            header += type.name() + " Trainees Waiting,"
-                    + type.name() + " Trainees Training,";
+            header += type.name() + "_Trainees_Waiting,"
+                    + type.name() + "_Trainees_Training,";
         }
         for (TrainingCentreType type: TrainingCentreType.values()) {
-            header+= type.name() + "S Open,"
-                    + type.name() + "S Closed,"
-                    + type.name() + "S Full,";
+            header+= type.name() + "S_Open,"
+                    + type.name() + "S_Closed,"
+                    + type.name() + "S_Full,";
         }
         return header.replaceAll(",$", "\n");
     }
