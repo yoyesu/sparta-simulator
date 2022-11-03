@@ -5,4 +5,8 @@ public interface Inputable {
 
      int getTotalMonths();
 
+     
+     // Gives the user a choice on the type of output.
+     int getOutputChoice();
+
 }

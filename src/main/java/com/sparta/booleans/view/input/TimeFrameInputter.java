@@ -1,7 +1,7 @@
 package com.sparta.booleans.view.input;
 
 import com.sparta.booleans.exceptions.InvalidTimeFrameMonthException;
-import com.sparta.booleans.exceptions.NegativeIntInputException;
+import com.sparta.booleans.exceptions.InvalidIntInputException;
 
 import java.util.Scanner;
 
@@ -15,10 +15,10 @@ public class TimeFrameInputter implements Inputable{
         int input = -1;
         try{
             input = scanner.nextInt();
-            if(input < 0){
-                throw new NegativeIntInputException();
+            if(input < 1){
+                throw new InvalidIntInputException();
             }
-        }catch (NegativeIntInputException e){
+        }catch (InvalidIntInputException e){
             System.out.println(e.getMessage());
             System.out.println("Re-enter a number: ");
             input = getInputInt();
@@ -26,10 +26,41 @@ public class TimeFrameInputter implements Inputable{
         return input;
     }
 
-    @Override
-    public int getTotalMonths() {
+    /* -> -> Deprecated
+     */
+    public int getTotalYearsAndMonths() {
         System.out.println("Enter Years and months for simulation");
         return  (getYears()*12) + getMonths();
+    }
+
+    // Asks user for number of years and returns the months
+    @Override
+    public int getTotalMonths() {
+        return  (getYears()*12);
+    }
+
+
+    /**
+     * Asks the user for a choice of report.
+     * @return int 1 for yearly breakdown, 2 for final summary
+     */
+    @Override
+    public int getOutputChoice() {
+        System.out.println("""
+                Select a choice for the report,\s
+                1: A yearly breakdown,\s
+                2: A simulation summary""");
+        int input = 999;
+        try{
+            input = getInputInt();
+            if(input > 2) {
+                throw new InvalidIntInputException();
+            }
+        }catch (InvalidIntInputException e){
+            System.out.println(e.getMessage());
+            input = getMonths();
+        }
+        return input;
     }
 
     public int getTotalMonths(int years, int months) {
