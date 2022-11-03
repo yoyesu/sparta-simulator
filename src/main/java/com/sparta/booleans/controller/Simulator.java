@@ -2,36 +2,40 @@ package com.sparta.booleans.controller;
 
 import com.sparta.booleans.exceptions.CapacityExceededException;
 import com.sparta.booleans.exceptions.TraineeNotFoundException;
-import com.sparta.booleans.model.DTO;
+import com.sparta.booleans.model.Client.Client;
+import com.sparta.booleans.model.Client.Requirement;
 import com.sparta.booleans.model.DTOGenerator;
 import com.sparta.booleans.model.MappedDTO;
 import com.sparta.booleans.model.trainee.Trainee;
-import com.sparta.booleans.model.trainee.TraineeInterface;
 import com.sparta.booleans.model.trainingCentre.*;
 import com.sparta.booleans.model.waitinglist.WaitingList;
 import com.sparta.booleans.utility.random.Randomizer;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Calendar;
 
 public class Simulator {
 
     private static int traineeID = 1;
     private static int centreID = 1;
+    private static int clientID = 1;
+    private static int requirementID = 1;
     private static int month = -1;
-    private static WaitingList waitingList = WaitingList.getWaitingList();
+
+    private static WaitingList waitingList = new WaitingList();
+    private static WaitingList benchedList = new WaitingList();
     private static ArrayList<TrainingCentre> trainingCentres = new ArrayList<>();
+    private static ArrayList<Client> clients = new ArrayList<Client>();
 
     public static MappedDTO runSimulation(int months) {
         for (int i = 0; i < months; i++) {
             month++;
 
+            handleClients();
+
             Trainee[] trainees = generateTrainees(month);
             waitingList.add(trainees);
 
             generateTrainingCentre();
-
             closeTrainingCentres();
 
             int totalIntake = generateTrainingCentreMonthlyIntake();
@@ -115,6 +119,58 @@ public class Simulator {
                     waitingList.add(trainee);
                 }
                 centre.setIsClosed(true);
+            }
+        }
+    }
+
+    private static void handleClients() {
+        benchTrainees();
+        createClientAndRequirements();
+        assignBenchedToClient();
+    }
+
+    private static void createClientAndRequirements() {
+        if (month % 11 == 0 && month != 0) {
+            for(Client client : clients){
+                if(client.isActive() && !client.shouldLeave()) {
+                    client.renewRequirement(requirementID++, month);
+                }
+            }
+            Client client = new Client(clientID++, month);
+            client.generateRequirement(requirementID++, month, benchedList.getSize());
+            clients.add(client);
+        }
+    }
+
+    private static void benchTrainees() {
+        for (TrainingCentre trainingCentre : trainingCentres) {
+            for (Trainee trainee : trainingCentre.getCurrentTrainees()) {
+                if (trainee.getStartTrainingMonth() - month > 12) {
+                    trainingCentre.benchTrainee(trainee);
+                    benchedList.add(trainee);
+                }
+            }
+        }
+    }
+
+    private static void assignBenchedToClient() {
+        //check if client happy before adding more benched trainees
+        for (Client client : clients) {
+            if(client.isActive()) {
+                for (Requirement req : client.getRequiredSkills()) {
+                    int countToRecruit = Randomizer.getRandomAssignedCount(req.getNumberOfConsultants());
+                    if (countToRecruit > req.getTraineesVacancies()) {
+                        countToRecruit = req.getTraineesVacancies();
+                    }
+                    for (int i = 0; i < countToRecruit; i++) {
+                        try {
+                            client.assignTrainee(benchedList.pollType(req.getRequirementType()));
+                            req.reduceAvailableSpace();
+                        } catch (TraineeNotFoundException e) {
+                            break;
+                        }
+                    }
+                }
             }
         }
     }

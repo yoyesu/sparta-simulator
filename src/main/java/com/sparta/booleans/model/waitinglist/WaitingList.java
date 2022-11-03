@@ -8,12 +8,8 @@ import java.util.ArrayList;
 
 public class WaitingList  {
 
-    private static WaitingList waitingList = new WaitingList();
-
     private Node<Trainee> head;
     private Node<Trainee> tail;
-
-    private WaitingList() {}
 
     public Trainee poll() {
         if (head == null) {
@@ -98,9 +94,5 @@ public class WaitingList  {
             }
         }
         return trainees;
-    }
-
-    public static WaitingList getWaitingList() {
-        return waitingList;
     }
 }

@@ -19,7 +19,7 @@ public class Client {
     public int getMonthCreated() {return monthCreated;}
     public boolean isActive()    {return isActive;}
 
-    Client (int clientID, int monthCreated) {
+    public Client (int clientID, int monthCreated) {
         this.clientID = clientID;
         this.monthCreated = monthCreated;
         isActive = true;
@@ -27,10 +27,15 @@ public class Client {
         traineesAssigned = new ArrayList<>();
     }
 
-    private void generateRequirement(int requirementID, int monthCreated, int bound) {
+    public void generateRequirement(int requirementID, int monthCreated, int bound) {
 
         Random random = new Random();
-        int clientTraineesRequired = random.nextInt(15,bound);
+        int clientTraineesRequired;
+        if (bound > 15) {
+            clientTraineesRequired = random.nextInt(15, bound);
+        } else {
+            clientTraineesRequired = 15;
+        }
 
         Requirement requirement = new Requirement(Randomizer.generateCourse(),
                                 clientTraineesRequired,
@@ -59,5 +64,12 @@ public class Client {
     public void assignTrainee(Trainee trainee) {
 
         traineesAssigned.add(trainee);
+    }
+
+    public void renewRequirement(int requirementID, int monthCreated) {
+        Requirement last = requiredSkills.get(requiredSkills.size() - 1);
+        Requirement requirement = new Requirement(last.getRequirementType(), last.getNumberOfConsultants()
+                , requirementID, monthCreated);
+        requiredSkills.add(requirement);
     }
 }
