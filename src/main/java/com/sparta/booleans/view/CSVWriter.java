@@ -32,6 +32,7 @@ public class CSVWriter implements OutputInterface {
     private void acceptSimulationData(MappedDTO simulationData) {
         List<String> data = new ArrayList<>();
 
+        data.add("" + simulationData.getTotalMonths());
 
         for (CourseType type: CourseType.values()) {
             int waiting = simulationData.getTraineesWaiting().get(type);
