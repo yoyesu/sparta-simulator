@@ -1,10 +1,10 @@
 package com.sparta.booleans.controller;
 
-import com.sparta.booleans.model.DTO;
 import com.sparta.booleans.model.MappedDTO;
 import com.sparta.booleans.utility.logging.CustomLoggerConfiguration;
 import com.sparta.booleans.view.CSVWriter;
 import com.sparta.booleans.view.OutputToConsole;
+import com.sparta.booleans.view.input.Inputable;
 import com.sparta.booleans.view.input.TimeFrameInputter;
 
 import java.util.logging.Level;
@@ -14,27 +14,33 @@ public class Starter {
 
     public void start() {
 
-
         // This customises the log , instance is not used.
        CustomLoggerConfiguration startLoggerConfig = CustomLoggerConfiguration.getInstance();
-
 
         Logger logger = CustomLoggerConfiguration.myLogger;
 
         logger.log(Level.INFO, " The simulation has started");
 
-        TimeFrameInputter imputter = new TimeFrameInputter();
+        // Start interface
+        Inputable inputter = new TimeFrameInputter();
 
-        MappedDTO currentDTO = Simulator.runSimulation(imputter.getTotalMonths());
+        int months = inputter.getTotalMonths();
+        int choice = inputter.getOutputChoice();
 
-        logger.log(Level.INFO, " The simulation has completed");
-
+        int frequency = choice == 1 ? months/12 : 1;
         CSVWriter writer = new CSVWriter();
         OutputToConsole outputter = new OutputToConsole();
 
-//        outputter.sendOutput(currentDTO);
-//        writer.sendOutput(currentDTO);
+
+        for (int i = 0 ; i < frequency; i++) {
+            MappedDTO currentDTO = Simulator.runSimulation(choice == 1 ? 12 : months);
+            outputter.sendOutput(currentDTO);
+            writer.sendOutput(currentDTO);
+
+        }
+
         writer.writeToFile();
+        logger.log(Level.INFO, " The simulation has completed");
 
         logger.log(Level.INFO, " The CSV Report is ready in the resources folder");
 
