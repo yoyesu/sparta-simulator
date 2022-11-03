@@ -1,10 +1,8 @@
 package com.sparta.booleans.view;
 
 import com.sparta.booleans.model.CourseType;
-import com.sparta.booleans.model.DTO;
 import com.sparta.booleans.model.MappedDTO;
 import com.sparta.booleans.model.TrainingCentreType;
-import com.sparta.booleans.model.trainee.Trainee;
 import com.sparta.booleans.utility.logging.CustomLoggerConfiguration;
 
 import java.io.*;
