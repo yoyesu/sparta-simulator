@@ -29,7 +29,7 @@ public class CSVWriter implements OutputInterface {
 
     @Override
     public void sendOutput(MappedDTO simulationData) {
-        if( simulationData == null) {
+        if (simulationData == null) {
             throw new IllegalArgumentException("DTO must not be null");
         }
         logger.log(Level.INFO, " Simulation Data has been accepted into ");
@@ -42,28 +42,32 @@ public class CSVWriter implements OutputInterface {
         List<String> data = new ArrayList<>();
 
         data.add("" + simulationData.getTotalMonths());
-
-        for (CourseType type: CourseType.values()) {
+        for (CourseType type : CourseType.values()) {
             int waiting = simulationData.getTraineesWaiting().get(type);
             int training = simulationData.getTraineesTraining().get(type);
+            int benched = simulationData.getTraineesOnBench().get(type);
+            int withClient = simulationData.getTraineesWithClient().get(type);
             data.add("" + waiting);
             data.add("" + training);
+            data.add("" + benched);
+            data.add("" + withClient);
         }
 
-        for (TrainingCentreType type: TrainingCentreType.values()) {
+        for (TrainingCentreType type : TrainingCentreType.values()) {
             int open = simulationData.getOpenCentres().get(type);
             int closed = simulationData.getClosedCentres().get(type);
             int full = simulationData.getFullCentres().get(type);
-
             data.add("" + open);
             data.add("" + closed);
             data.add("" + full);
         }
+        data.add("" + simulationData.getHappyClients());
+        data.add("" + simulationData.getUnhappyClients());
 
         simulationOutputs.add(data);
     }
 
-    private String convertToCSV(List<String> data){
+    private String convertToCSV(List<String> data) {
         return String.join(",", data);
     }
 
@@ -85,20 +89,20 @@ public class CSVWriter implements OutputInterface {
 
     private String produceHeader() {
         String header = "Total_Months,";
-        for (CourseType type: CourseType.values()) {
+        for (CourseType type : CourseType.values()) {
             header += type.name() + "_Trainees_Waiting,"
-                    + type.name() + "_Trainees_Training,";
+                    + type.name() + "_Trainees_Training,"
+                    + type.name() + "_Trainees_On_Bench"
+                    + type.name() + "_Trainees_With_Client";
         }
-        for (TrainingCentreType type: TrainingCentreType.values()) {
-            header+= type.name() + "S_Open,"
+        for (TrainingCentreType type : TrainingCentreType.values()) {
+            header += type.name() + "S_Open,"
                     + type.name() + "S_Closed,"
                     + type.name() + "S_Full,";
         }
-        return header.replaceAll(",$", "\n");
+        header += "Happy_Clients,Unhappy_Clients\n";
+        return header;
     }
-
-
-
 
 
 }

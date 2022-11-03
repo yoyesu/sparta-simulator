@@ -23,7 +23,7 @@ public class WaitingList  {
 
     public Trainee pollType(CourseType type) throws TraineeNotFoundException {
         if (head == null) {
-            return null;
+            throw new TraineeNotFoundException();
         }
 
         Node<Trainee> node = head;

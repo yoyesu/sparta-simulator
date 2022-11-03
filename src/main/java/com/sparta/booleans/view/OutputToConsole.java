@@ -17,6 +17,10 @@ public class OutputToConsole implements OutputInterface{
                     + simulationData.getTraineesTraining().get(type));
             System.out.println(type.name() + " Trainees Waiting: "
                     + simulationData.getTraineesWaiting().get(type));
+            System.out.println(type.name() + " Trainees On Bench: "
+                    + simulationData.getTraineesOnBench().get(type));
+            System.out.println(type.name() + " Trainees With Clients: "
+                    + simulationData.getTraineesWithClient().get(type));
         }
         System.out.println("\nTraining Centres: ");
         for (TrainingCentreType type: TrainingCentreType.values()) {
@@ -27,6 +31,9 @@ public class OutputToConsole implements OutputInterface{
             System.out.println(type.name() + "S Full: "
                     + simulationData.getFullCentres().get(type));
         }
+        System.out.println("\nClients:");
+        System.out.println("Happy Clients: " + simulationData.getHappyClients());
+        System.out.println("Unhappy Clients: " + simulationData.getUnhappyClients());
         System.out.println("+-----------------------------------------+");
     }
 

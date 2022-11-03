@@ -73,7 +73,8 @@ public class Simulator {
                 }
             }
         }
-        return DTOGenerator.generateDTO(month + 1, waitingList.toArrayList(), trainingCentres);
+        return DTOGenerator.generateDTO(month + 1, waitingList.toArrayList(),
+                benchedList.toArrayList(), trainingCentres, clients);
     }
 
     private static Trainee[] generateTrainees(int month) {
@@ -145,7 +146,7 @@ public class Simulator {
     private static void benchTrainees() {
         for (TrainingCentre trainingCentre : trainingCentres) {
             for (Trainee trainee : trainingCentre.getCurrentTrainees()) {
-                if (trainee.getStartTrainingMonth() - month > 12) {
+                if (month - trainee.getStartTrainingMonth() > 11) {
                     trainingCentre.benchTrainee(trainee);
                     benchedList.add(trainee);
                 }
@@ -154,7 +155,6 @@ public class Simulator {
     }
 
     private static void assignBenchedToClient() {
-        //check if client happy before adding more benched trainees
         for (Client client : clients) {
             if(client.isActive()) {
                 for (Requirement req : client.getRequiredSkills()) {
