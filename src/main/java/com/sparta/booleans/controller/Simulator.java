@@ -131,7 +131,7 @@ public class Simulator {
     }
 
     private static void createClientAndRequirements() {
-        if (month % 11 == 0 && month != 0) {
+        if (month> 11 && month % 12 == 0 && month != 0) {
             for(Client client : clients){
                 if(client.isActive() && !client.shouldLeave()) {
                     client.renewRequirement(requirementID++, month);

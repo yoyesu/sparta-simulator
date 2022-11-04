@@ -11,6 +11,8 @@ public class WaitingList  {
     private Node<Trainee> head;
     private Node<Trainee> tail;
 
+    private int size = 0;
+
     public Trainee poll() {
         if (head == null) {
             return null;
@@ -59,27 +61,24 @@ public class WaitingList  {
             }
             tail = newTail;
         }
+        size++;
     }
 
     public void addToFront(Trainee element) {
         Node<Trainee> node = new Node<>(element);
         node.setTail(head);
         head = node;
+        size++;
     }
 
     public void remove() {
         head = head.getTail();
+        size--;
     }
 
     public int getSize() {
         if (head == null) {
             return 0;
-        }
-        Node<Trainee> node = head;
-        int size = 0;
-        while(node != null) {
-            size++;
-            node = node.getTail();
         }
         return size;
     }
