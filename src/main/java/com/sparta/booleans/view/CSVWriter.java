@@ -92,8 +92,8 @@ public class CSVWriter implements OutputInterface {
         for (CourseType type : CourseType.values()) {
             header += type.name() + "_Trainees_Waiting,"
                     + type.name() + "_Trainees_Training,"
-                    + type.name() + "_Trainees_On_Bench"
-                    + type.name() + "_Trainees_With_Client";
+                    + type.name() + "_Trainees_On_Bench,"
+                    + type.name() + "_Trainees_With_Client,";
         }
         for (TrainingCentreType type : TrainingCentreType.values()) {
             header += type.name() + "S_Open,"
