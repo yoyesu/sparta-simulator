@@ -124,6 +124,8 @@ The parts of the program which were not suitable for unit testing were tested ma
 ***
 
 ## **Project Management**
+  
+### <span style="color: blue;">**Planning**</span>
 
 To plan the project, Boo-Leans started by creating user stories from the client requirements.
 Trello was the [kanban board of choice](https://trello.com/b/z01BitTz/boo-leans) as it provided a useful user-friendly interface.
@@ -139,11 +141,11 @@ The user stories where then assigned to either an individual or pair depending o
 
 ![user story](https://user-images.githubusercontent.com/115146708/199549868-ee5cb24c-7f83-44e5-9ea3-271718b8a838.png)
 
-REVIEW
+### <span style="color: blue;">**Reviews**</span>
 
 In our daily review we analysed our project board to see what had been completed and we demonstrated the working program to the client. We went through any changes that we made and what was left to build before we moved onto out next sprint.
   
-RETROSPECTIVE
+### <span style="color: blue;">**Retrospective**</span>
   
 We used metroretro to analyse how the days work and use any lessons learnt to build better working practices. Useful lessons learned included: agreeing on names for classes/methods and put them on the lucid board so this saved time resolving these differences later, and sticking to the user story only as we had some developers working on the same class. 
   
