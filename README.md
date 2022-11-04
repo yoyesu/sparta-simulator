@@ -17,6 +17,9 @@
   - [JUnit Testing](#junit-testing)
   - [Manual Testing](#manual-testing)
 * [**Project Management**](#project-management)
+  - [Planning](#planning)
+  - [Reviews](#reviews)
+  - [Retrospective](#retrospective)
 * [**Sprint 1**](#sprint-1)
   - [Requirements](#requirements)
   - [Delivery](#delivery)
@@ -141,6 +144,12 @@ The user stories where then assigned to either an individual or pair depending o
 
 ![user story](https://user-images.githubusercontent.com/115146708/199549868-ee5cb24c-7f83-44e5-9ea3-271718b8a838.png)
 
+BooLeans also created a [UML diagram using Lucid](https://lucid.app/lucidchart/ae1f1fcb-8615-4a63-9295-d6872261f334/edit?invitationId=inv_9d4bdb41-2359-4d27-b396-0ef76c1834cc&page=K9z5_9P_n0Ck#), to create a visual representation of the program to aid our clarity and planning
+Here is an image of Boo-Leans' UML diagram:
+
+![Lucid board](https://user-images.githubusercontent.com/115146708/199550021-2df35dea-3214-49d7-b571-f0453f6bac4e.png)
+
+  
 ### <span style="color: blue;">**Reviews**</span>
 
 In our daily review we analysed our project board to see what had been completed and we demonstrated the working program to the client. We went through any changes that we made and what was left to build before we moved onto out next sprint.
@@ -149,10 +158,6 @@ In our daily review we analysed our project board to see what had been completed
   
 We used metroretro to analyse how the days work and use any lessons learnt to build better working practices. Useful lessons learned included: agreeing on names for classes/methods and put them on the lucid board so this saved time resolving these differences later, and sticking to the user story only as we had some developers working on the same class. 
   
-BooLeans also created a UML diagram using Lucid, to create a visual representation of the program.
-Here is an image of Boo-Leans' UML diagram:
-
-![Lucid board](https://user-images.githubusercontent.com/115146708/199550021-2df35dea-3214-49d7-b571-f0453f6bac4e.png)
 
 ***
 
