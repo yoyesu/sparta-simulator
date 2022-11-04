@@ -31,12 +31,9 @@
 
 ## About Project
 
-This project is developed as a team of 9, following agile methodologies, good programming practices in OOP, SOLID, design patterns, testing and logging.
+To create a Sparta Global simulation of the company and its expansion, where trainees are randomly created on a monthly basis and either trained or assigned to a waiting list. This will run for a set amount of time determined by the user and output a summary of the number of trainees trained, trainees waiting, training centres open as well as other statistics.  This will allow the client to better predict their plans for the future.  
 
-Sparta Global wants us to create a trainee simulator where we take in 50 new trainees per month and assign them to a new trainee centre which gets built every 2 months.
-The client wants to input how long they would like to run the simulation for, then the program uses this information to output how many trainees were generated, how many full
-trainee centres, and how many open trainee centres there are among other statistics. This will allow the client to better predict their plan for the future.
-The projects functionality includes being able to write data to a csv file, a GUI system that the user can interact with and the simulation for x amount of time.
+This project is developed as a team of 9, following agile methodologies, good programming practices in OOP, SOLID, design patterns, testing and logging. We created user stories on our [project board](https://trello.com/b/z01BitTz/boo-leans) to track our progess and ensure out focus remains on the tasks and requirements for the client.
 
 ### <span style="color: blue;">**Built With**</span>
 
