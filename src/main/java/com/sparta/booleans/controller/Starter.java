@@ -30,7 +30,7 @@ public class Starter {
         int frequency = choice == 1 ? months/12 : 1;
         CSVWriter writer = new CSVWriter();
         OutputToConsole outputter = new OutputToConsole();
-        logger.log(Level.INFO, "The client has chosen to run the simulation for " + choice + " years");
+        logger.log(Level.INFO, "The client has chosen to run the simulation for " + months/12 + " years");
 
 
         for (int i = 0 ; i < frequency; i++) {
