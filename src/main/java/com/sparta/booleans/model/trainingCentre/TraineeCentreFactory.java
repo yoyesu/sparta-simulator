@@ -12,6 +12,8 @@ public class TraineeCentreFactory {
     public static int getBootCampCount() {return bootCampCount;}
 
     // Methods
+    static public void resetBootCampCount() {bootCampCount = 0;}
+
     static public TrainingCentre createTrainingCentre(int dateCreated, int centreID) throws UnknownTrainingCentre {
 
         switch (new Random().nextInt(3)) {

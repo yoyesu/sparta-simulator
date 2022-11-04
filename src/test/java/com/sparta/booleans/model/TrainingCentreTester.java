@@ -5,12 +5,18 @@ import com.sparta.booleans.model.trainee.Trainee;
 import com.sparta.booleans.exceptions.CapacityExceededException;
 import com.sparta.booleans.model.trainingCentre.*;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
 public class TrainingCentreTester {
+
+    @BeforeEach
+    void runBeforeTests() {
+        TraineeCentreFactory.resetBootCampCount();
+    }
 
     @Test
     @DisplayName("Check that isFull returns false")
@@ -57,11 +63,22 @@ public class TrainingCentreTester {
 
     @Test
     @DisplayName("Check is UnknownTrainingCentre is thrown")
-    void checkUnknownTrainingCentre() {
+    void checkUnknownTrainingCentreException() {
 
         Assertions.assertThrows(UnknownTrainingCentre.class, () -> {
 
             TrainingCentre trainingCentre = TraineeCentreFactory.createTrainingCentre(12,12, 5);
+        });
+    }
+
+    @ParameterizedTest
+    @ValueSource(ints = {0,1,2})
+    @DisplayName("Check Exceptions is not thrown")
+    void checkUnknownTrainingCentreExceptionIsNotThrown(int values) {
+
+        Assertions.assertDoesNotThrow(() -> {
+
+            TrainingCentre trainingCentre = TraineeCentreFactory.createTrainingCentre(12,1, values);
         });
     }
 
@@ -96,20 +113,68 @@ public class TrainingCentreTester {
         Assertions.assertEquals(1, trainingCentre.getCurrentTrainees().size());
     }
 
+//    @Test
+//    @DisplayName("Check Only Two Bootcamps Exist")
+//    void checkOnlyTwoBootcampsExist() {
+//
+//        TrainingCentre[] trainingCentres = new TrainingCentre[10000];
+//        int bootcampCount = 0;
+//
+//        // Create 10000 Training Centers
+//        for(int i = 0; i < 10000; i++) {
+//
+//            trainingCentres[i] = TraineeCentreFactory.createTrainingCentre(i+1, i);
+//            if(trainingCentres[i] instanceof Bootcamp) bootcampCount++;
+//        }
+//        boolean check = bootcampCount == 0 || bootcampCount == 1 || bootcampCount == 2;
+//        Assertions.assertTrue(check);
+//    }
+
     @Test
-    @DisplayName("Check Only Two Bootcamps Exist")
-    void checkOnlyTwoBootcampsExist() {
+    @DisplayName("Check Open for How Long")
+    void checkCheckOpenHowLong() {
 
-        TrainingCentre[] trainingCentres = new TrainingCentre[10000];
-        int bootcampCount = 0;
+        TrainingCentre trainingCentre = TraineeCentreFactory.createTrainingCentre(4, 10);
+        Assertions.assertEquals(2, trainingCentre.openHowLong(6));
+    }
 
-        // Create 10000 Training Centers
-        for(int i = 0; i < 10000; i++) {
+    @Test
+    @DisplayName("Check Should be Closed is true")
+    void checkShouldBeClosed() {
 
-            trainingCentres[i] = TraineeCentreFactory.createTrainingCentre(i+1, i);
-            if(trainingCentres[i] instanceof Bootcamp) bootcampCount++;
+        TrainingCentre trainingCentre = TraineeCentreFactory.createTrainingCentre(2,12,1);
+
+        Assertions.assertEquals(true, trainingCentre.shouldBeClosed(6));
+    }
+
+    @Test
+    @DisplayName("Check Bootcamp is Created")
+    void checkBootcampIsCreated() {
+
+        TrainingCentre trainingCentre = TraineeCentreFactory.createTrainingCentre(2,12,2);
+        Assertions.assertInstanceOf(Bootcamp.class, trainingCentre);
+    }
+
+    @Test
+    @DisplayName("Check Trainee Size is 0")
+    void checkTraineeSizeIs0() {
+
+        TrainingCentre trainingCentre = TraineeCentreFactory.createTrainingCentre(2,12,2);
+        Assertions.assertEquals(0, trainingCentre.getCurrentTrainees().size());
+    }
+
+    @Test
+    @DisplayName("Check (Bootcamp) Should be Closed is false")
+    void checkShouldBeClosedBootcamp1() {
+
+        TrainingCentre trainingCentre = TraineeCentreFactory.createTrainingCentre(2,12,2);
+        Trainee[] trainees = new Trainee[25];
+
+        for(int i=0; i<25; i++) {
+            trainees[i] = new Trainee(i, 2);
+            trainingCentre.addTrainee(trainees[i]);
         }
-        boolean check = bootcampCount == 0 || bootcampCount == 1 || bootcampCount == 2;
-        Assertions.assertTrue(check);
+
+        Assertions.assertFalse(trainingCentre.shouldBeClosed(6));
     }
 }
