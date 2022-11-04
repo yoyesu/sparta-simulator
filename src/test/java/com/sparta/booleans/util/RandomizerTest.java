@@ -63,4 +63,10 @@ public class RandomizerTest {
 //          Assertions.assertThrows(CourseTypeNotFound.class, Randomizer::generateCourse);
         }
     }
+
+    @Test
+    @DisplayName("Testing generateCourse method does not throw CourseTypeNotFoundException")
+    public void testCourseTypeNotFoundException(){
+        Assertions.assertDoesNotThrow(Randomizer::generateCourse);
+    }
 }
