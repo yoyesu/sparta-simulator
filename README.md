@@ -130,8 +130,8 @@ The parts of the program which were not suitable for unit testing were tested ma
   
 ### <span style="color: blue;">**Planning**</span>
 
-To plan the project, Boo-Leans started by creating user stories from the client requirements.
-Trello was the [kanban board of choice](https://trello.com/b/z01BitTz/boo-leans) as it provided a useful user-friendly interface.
+To plan the project, [Boo-Leans](https://trello.com/b/z01BitTz/boo-leans) started by creating user stories from the client requirements.
+Trello was the kanban board of choice as it provided a useful user-friendly interface.
 
 Below is an image of Boo-Leans' kanban board:
 
