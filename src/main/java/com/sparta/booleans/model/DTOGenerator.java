@@ -90,7 +90,9 @@ public class DTOGenerator {
         ArrayList<Trainee> trainees = new ArrayList<>();
 
         for (TrainingCentre centre: trainingCentres) {
-            trainees.addAll(centre.getCurrentTrainees());
+            if (!centre.getIsClosed()) {
+                trainees.addAll(centre.getCurrentTrainees());
+            }
         }
 
         getTraineeCountByCourse(trainees, traineeMap);
@@ -100,10 +102,6 @@ public class DTOGenerator {
         ArrayList<Trainee> trainees = new ArrayList<>();
 
         for (Client client: clients) {
-            for (Trainee t: client.getTraineesAssigned()) {
-                //System.out.println(t);
-                //System.out.println(t != null? t.getTraineeId() : null);
-            }
             trainees.addAll(client.getTraineesAssigned());
         }
 

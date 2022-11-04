@@ -130,7 +130,7 @@ public class Simulator {
         int countTrainees =0;
         int countClosedCentres=0;
         for (TrainingCentre centre : trainingCentres) {
-            if (centre.shouldBeClosed(month)) {
+            if (!centre.getIsClosed() && centre.shouldBeClosed(month)) {
                 for (Trainee trainee : centre.getCurrentTrainees()) {
 //                    logger.log(Level.FINEST, "Adding trainee no. " + trainee.getTraineeId() + " to waiting list as training centre is closed!");
                     waitingList.add(trainee);
@@ -188,7 +188,11 @@ public class Simulator {
                     }
                     for (int i = 0; i < countToRecruit; i++) {
                         try {
-                            client.assignTrainee(benchedList.pollType(req.getRequirementType()));
+                            Trainee trainee = benchedList.poll();
+                            if (trainee == null) {
+                                throw new TraineeNotFoundException();
+                            }
+                            client.assignTrainee(trainee);
                             count++;
                             req.reduceAvailableSpace();
                         } catch (TraineeNotFoundException e) {

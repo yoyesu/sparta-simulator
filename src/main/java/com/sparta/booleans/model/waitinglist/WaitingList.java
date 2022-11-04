@@ -33,15 +33,25 @@ public class WaitingList  {
             return poll();
         }
 
-        while (node.getTail() != null) {
-            Node<Trainee> compare = node.getTail();
-            if (compare.getElement().getCourseType() == type) {
-                node.setTail(compare.getTail());
-                return compare.getElement();
+        while (node != null) {
+            if (node.getElement().getCourseType() == type) {
+                return getTraineeInMiddle(node);
             }
             node = node.getTail();
         }
         throw new TraineeNotFoundException();
+    }
+
+    private Trainee getTraineeInMiddle(Node node) {
+        ArrayList<Trainee> addBack = new ArrayList<>();
+        while (head != node) {
+            addBack.add(poll());
+        }
+        Trainee found = poll();
+        for (Trainee trainee: addBack) {
+            addToFront(trainee);
+        }
+        return found;
     }
 
     public Trainee peek() {
@@ -60,8 +70,8 @@ public class WaitingList  {
                 tail.setTail(newTail);
             }
             tail = newTail;
+            size++;
         }
-        size++;
     }
 
     public void addToFront(Trainee element) {
