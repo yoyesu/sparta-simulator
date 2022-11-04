@@ -139,6 +139,9 @@ The user stories where then assigned to either an individual or pair depending o
 
 ![user story](https://user-images.githubusercontent.com/115146708/199549868-ee5cb24c-7f83-44e5-9ea3-271718b8a838.png)
 
+REVIEW
+RETROSPECTIVE
+  
 BooLeans also created a UML diagram using Lucid, to create a visual representation of the program.
 Here is an image of Boo-Leans' UML diagram:
 
