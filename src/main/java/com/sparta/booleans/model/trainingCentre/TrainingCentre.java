@@ -84,7 +84,7 @@ public abstract class TrainingCentre {
     abstract public boolean shouldBeClosed(int month);
 
     public void benchTrainee(Trainee trainee){
-        currentTrainees.remove(trainee);
 
+        currentTrainees.remove(trainee);
     }
 }
