@@ -1,7 +1,6 @@
 # Sparta Training Academy Simulator Project
 ![java_badge](https://img.shields.io/badge/-Java-lightgrey?style=for-the-badge&logo=appveyor)
 ![maven_badge](https://img.shields.io/badge/-Maven-yellow?style=for-the-badge&logo=appveyor)
-![sql_badge](https://img.shields.io/badge/-SQL-blue?style=for-the-badge&logo=appveyor)
 ![performance](https://img.shields.io/badge/-Performance-orange?style=for-the-badge&logo=appveyor)
 
 **Developed by Maria, Will, Max, Ricardo, Justin, John, Mohamed, Gurjeev, and Lucas**
@@ -184,8 +183,23 @@ At the end of sprint 1, Booleans produced a minimum viable product to the client
 
 ### <span style="color: blue;"> **Delivery** </span>
 
-At the end of sprint 1, Booleans produced a minimum viable product to the client and the requirements were met.
+At the end of sprint 2, Booleans produced a minimum viable product to the client and the requirements were met.
 ***
+
+## **Sprint 3**
+### <span style="color: blue;"> Requirements </span>
+
+Stage 3 requirements:
+- If a trainee has been in training for a year, they are moved to a bench state
+- Clients will begin to be randomly created after 1 year of the simulation
+- A client will have a requirement when they are created e.g a need for 27 Java trainees.  The requirement can be any value greater than or equal to
+  15
+- A client will take a random number of trainees from the bench each month (1 - full requirement) until their requirement is met
+- A client will only take one type of trainee (Java, C#, Data, DevOps or Business)
+- If a client does not collect enough trainees from the bench within a year, they will leave unhappy
+- If a client does collect enough trainees from the bench within a year, they will leave happy and return the next year with the same requirement
+- The output should now include a breakdown of happy and unhappy clients
+
 
 ## Future Development
 
