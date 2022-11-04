@@ -30,6 +30,7 @@ public class Starter {
         int frequency = choice == 1 ? months/12 : 1;
         CSVWriter writer = new CSVWriter();
         OutputToConsole outputter = new OutputToConsole();
+        logger.log(Level.INFO, "The client has chosen to run the simulation for " + choice + " years");
 
 
         for (int i = 0 ; i < frequency; i++) {
@@ -42,7 +43,7 @@ public class Starter {
         writer.writeToFile();
         logger.log(Level.INFO, " The simulation has completed");
 
-        logger.log(Level.INFO, " The CSV Report is ready in the resources folder");
+        logger.log(Level.INFO, " The CSV Report is ready in the resources folder with " + writer.getCSV_FILE_NAME());
 
     }
 }
