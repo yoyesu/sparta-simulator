@@ -13,7 +13,7 @@
   - [Installation](#installation)
   - [Program Structure](#program-structure)
 * [**Use of Functional Programming**](#use-of-functional-programming)
-* * [**Testing**](#testing)
+* [**Testing**](#testing)
   - [JUnit Testing](#junit-testing)
   - [Manual Testing](#manual-testing)
 * [**Project Management**](#project-management)
