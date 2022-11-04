@@ -9,9 +9,13 @@ import com.sparta.booleans.model.MappedDTO;
 import com.sparta.booleans.model.trainee.Trainee;
 import com.sparta.booleans.model.trainingCentre.*;
 import com.sparta.booleans.model.waitinglist.WaitingList;
+import com.sparta.booleans.utility.logging.CustomLoggerConfiguration;
 import com.sparta.booleans.utility.random.Randomizer;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Simulator {
 
@@ -25,15 +29,18 @@ public class Simulator {
     private static WaitingList benchedList = new WaitingList();
     private static ArrayList<TrainingCentre> trainingCentres = new ArrayList<>();
     private static ArrayList<Client> clients = new ArrayList<Client>();
+    public static Logger logger = CustomLoggerConfiguration.myLogger;
 
     public static MappedDTO runSimulation(int months) {
         for (int i = 0; i < months; i++) {
+            logger.log(Level.FINE, "Month " + i + " of simulation:");
             month++;
 
             handleClients();
 
             Trainee[] trainees = generateTrainees(month);
             waitingList.add(trainees);
+            logger.log(Level.FINER, "Adding " + trainees.length + " trainees to the waiting list");
 
             generateTrainingCentre();
             closeTrainingCentres();
@@ -49,6 +56,7 @@ public class Simulator {
                         try {
                             if (centre instanceof TechCentre) {
                                 trainee = waitingList.pollType(((TechCentre) centre).getCourseType());
+//                                logger.log(Level.FINER, "Adding trainee no. " + trainee.getTraineeId() + " to a TechCentre");
                             } else {
                                 trainee = waitingList.poll();
                             }
@@ -81,7 +89,9 @@ public class Simulator {
         Trainee[] trainees = new Trainee[Randomizer.getRandomTrainees()];
         for (int i = 0; i < trainees.length; i++) {
             trainees[i] = new Trainee(traineeID++, month);
+//            logger.log(Level.FINER, "Trainee no. " + traineeID + " has been generated!");
         }
+        logger.log(Level.FINER, trainees.length + " trainees have been generated");
         return trainees;
     }
 
@@ -91,6 +101,7 @@ public class Simulator {
             if (trainingCentre instanceof Hub) {
                 trainingCentres.add(new Hub(month, centreID++));
                 trainingCentres.add(new Hub(month, centreID++));
+                logger.log(Level.FINER, "2 new training hubs have been generated!");
             }
             trainingCentres.add(trainingCentre);
         }
@@ -105,23 +116,32 @@ public class Simulator {
                     monthlyIntake = centre.getVacancies();
                 }
                 centre.setMonthlyIntake(monthlyIntake);
+                logger.log(Level.FINER, centre.getClass().getName() + " with centreID " + centre.getCentreID() + " requires " + monthlyIntake + " trainees");
                 totalIntake += monthlyIntake;
             } else {
                 centre.setMonthlyIntake(0);
+                logger.log(Level.FINER, "Training centre " + centre.getClass().getName() + ": with centreID " + centre.getCentreID() + " is full!");
             }
         }
         return totalIntake;
     }
 
     private static void closeTrainingCentres() {
+        int countTrainees =0;
+        int countClosedCentres=0;
         for (TrainingCentre centre : trainingCentres) {
             if (centre.shouldBeClosed(month)) {
                 for (Trainee trainee : centre.getCurrentTrainees()) {
+//                    logger.log(Level.FINEST, "Adding trainee no. " + trainee.getTraineeId() + " to waiting list as training centre is closed!");
                     waitingList.add(trainee);
+                    countTrainees++;
                 }
                 centre.setIsClosed(true);
             }
+            countClosedCentres++;
         }
+        logger.log(Level.FINER, countClosedCentres + " training centres have closed as requirements haven't been met!");
+        logger.log(Level.FINEST, "Adding " + countTrainees + " trainees to waiting list as their training centre has closed!");
     }
 
     private static void handleClients() {
@@ -144,17 +164,21 @@ public class Simulator {
     }
 
     private static void benchTrainees() {
+        int count =0;
         for (TrainingCentre trainingCentre : trainingCentres) {
             for (Trainee trainee : trainingCentre.getCurrentTrainees()) {
                 if (month - trainee.getStartTrainingMonth() > 11) {
                     trainingCentre.benchTrainee(trainee);
                     benchedList.add(trainee);
+                    count++;
                 }
             }
         }
+        logger.log(Level.FINER, "Adding " + count + " trainees to the bench as they have completed their training");
     }
 
     private static void assignBenchedToClient() {
+        int count=0;
         for (Client client : clients) {
             if(client.isActive()) {
                 for (Requirement req : client.getRequiredSkills()) {
@@ -165,6 +189,7 @@ public class Simulator {
                     for (int i = 0; i < countToRecruit; i++) {
                         try {
                             client.assignTrainee(benchedList.pollType(req.getRequirementType()));
+                            count++;
                             req.reduceAvailableSpace();
                         } catch (TraineeNotFoundException e) {
                             break;
@@ -173,5 +198,6 @@ public class Simulator {
                 }
             }
         }
+        logger.log(Level.FINE,  count + " benched trainees have been assigned to a client");
     }
 }
