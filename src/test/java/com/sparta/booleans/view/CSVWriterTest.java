@@ -16,9 +16,11 @@ import java.util.HashMap;
 import java.util.List;
 
 class CSVWriterTest {
-    String CSV_FILE_NAME = "src/main/resources/simulation_report.csv";
+
     HashMap<CourseType, Integer> traineesWaiting = new HashMap<>();
     HashMap<CourseType, Integer> traineesTraining = new HashMap<>();
+    HashMap<CourseType, Integer> traineesOnBench = new HashMap<>();
+    HashMap<CourseType, Integer> traineesWithClient = new HashMap<>();
     HashMap<TrainingCentreType, Integer> openCentres = new HashMap<>();
     HashMap<TrainingCentreType, Integer> closedCentres = new HashMap<>();
     HashMap<TrainingCentreType, Integer> fullCentres = new HashMap<>();
@@ -45,22 +47,39 @@ class CSVWriterTest {
         traineesTraining.put(CourseType.DEVOPS, 40);
         traineesTraining.put(CourseType.CSHARP, 50);
 
-        openCentres.put(TrainingCentreType.BOOTCAMP, 10);
-        openCentres.put(TrainingCentreType.TECH_CENTRE, 20);
-        openCentres.put(TrainingCentreType.TRAINING_HUB, 30);
+        traineesOnBench.put(CourseType.BUSINESS, 10);
+        traineesOnBench.put(CourseType.JAVA, 20);
+        traineesOnBench.put(CourseType.DATA, 30);
+        traineesOnBench.put(CourseType.DEVOPS, 40);
+        traineesOnBench.put(CourseType.CSHARP, 50);
 
-        closedCentres.put(TrainingCentreType.BOOTCAMP, 10);
-        closedCentres.put(TrainingCentreType.TECH_CENTRE, 20);
-        closedCentres.put(TrainingCentreType.TRAINING_HUB, 30);
+        traineesWithClient.put(CourseType.BUSINESS, 10);
+        traineesWithClient.put(CourseType.JAVA, 20);
+        traineesWithClient.put(CourseType.DATA, 30);
+        traineesWithClient.put(CourseType.DEVOPS, 40);
+        traineesWithClient.put(CourseType.CSHARP, 50);
 
-        fullCentres.put(TrainingCentreType.BOOTCAMP, 10);
-        fullCentres.put(TrainingCentreType.TECH_CENTRE, 20);
-        fullCentres.put(TrainingCentreType.TRAINING_HUB, 30);
+        openCentres.put(TrainingCentreType.BOOTCAMP, 3);
+        openCentres.put(TrainingCentreType.TECH_CENTRE, 7);
+        openCentres.put(TrainingCentreType.TRAINING_HUB, 9);
+
+        closedCentres.put(TrainingCentreType.BOOTCAMP, 3);
+        closedCentres.put(TrainingCentreType.TECH_CENTRE, 7);
+        closedCentres.put(TrainingCentreType.TRAINING_HUB, 9);
+
+        fullCentres.put(TrainingCentreType.BOOTCAMP, 3);
+        fullCentres.put(TrainingCentreType.TECH_CENTRE, 7);
+        fullCentres.put(TrainingCentreType.TRAINING_HUB, 9);
 
 
-        sample = new MappedDTO(12, traineesWaiting, traineesTraining, openCentres, closedCentres, fullCentres);
-
-
+        sample = new MappedDTO(12,
+                traineesWaiting,
+                traineesTraining,
+                traineesOnBench,
+                traineesWithClient,
+                openCentres,
+                closedCentres,
+                fullCentres, 1, 2);
     }
 
 
@@ -71,10 +90,11 @@ class CSVWriterTest {
 
         writer.writeToFile();
 
-        List<String> expected = new ArrayList<>(List.of("Total Months,JAVA Trainees Waiting,JAVA Trainees Training,CSHARP Trainees Waiting,CSHARP Trainees Training,DATA Trainees Waiting,DATA Trainees Training,DEVOPS Trainees Waiting,DEVOPS Trainees Training,BUSINESS Trainees Waiting,BUSINESS Trainees Training,TECH_CENTRES Open,TECH_CENTRES Closed,TECH_CENTRES Full,BOOTCAMPS Open,BOOTCAMPS Closed,BOOTCAMPS Full,TRAINING_HUBS Open,TRAINING_HUBS Closed,TRAINING_HUBS Full",
-                "12,20,20,50,50,30,30,40,40,10,10,20,20,20,10,10,10,30,30,30"));
+        List<String> expected = new ArrayList<>(List.of(
+                "Total_Months,JAVA_Trainees_Waiting,JAVA_Trainees_Training,JAVA_Trainees_On_Bench,JAVA_Trainees_With_Client,CSHARP_Trainees_Waiting,CSHARP_Trainees_Training,CSHARP_Trainees_On_Bench,CSHARP_Trainees_With_Client,DATA_Trainees_Waiting,DATA_Trainees_Training,DATA_Trainees_On_Bench,DATA_Trainees_With_Client,DEVOPS_Trainees_Waiting,DEVOPS_Trainees_Training,DEVOPS_Trainees_On_Bench,DEVOPS_Trainees_With_Client,BUSINESS_Trainees_Waiting,BUSINESS_Trainees_Training,BUSINESS_Trainees_On_Bench,BUSINESS_Trainees_With_Client,TECH_CENTRES_Open,TECH_CENTRES_Closed,TECH_CENTRES_Full,BOOTCAMPS_Open,BOOTCAMPS_Closed,BOOTCAMPS_Full,TRAINING_HUBS_Open,TRAINING_HUBS_Closed,TRAINING_HUBS_Full,Happy_Clients,Unhappy_Clients",
+                "12,20,20,20,20,50,50,50,50,30,30,30,30,40,40,40,40,10,10,10,10,7,7,7,3,3,3,9,9,9,1,2"));
 
-        Assertions.assertEquals(expected, CSVReader(CSV_FILE_NAME));
+        Assertions.assertEquals(expected, CSVReader(writer.getCSV_FILE_NAME()));
 
     }
 
