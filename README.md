@@ -55,6 +55,13 @@ Make sure to install the dependencies and software included.
 Clone the repository below.
 > https://github.com/yoyesu/sparta-simulator.git
 
+Once installed and run the program will ask you to:
+  1. Enter the number of years: <Enter number of years require for the simulation here>
+  2. Select a choice for the report,
+    1. A yearly breakdown -> this will print out a annual summary of the clients / tech centres / bootcamps / trainees for each course as well as save this in the resources folder
+    2. A simulation summary -> this will only produce totals for the clients / tech centres / bootcamps / trainees for the entire simulation
+
+The resources will save a history of the last 10 reports generated for reference.
 
 ### <span style="color: blue;">**Program Structure**</span>
 
