@@ -37,4 +37,6 @@ build/
 
 ### Mac OS ###
 .DS_Store
-/src/main/resources/simulation_report.csv
+
+*.csv
+*.log

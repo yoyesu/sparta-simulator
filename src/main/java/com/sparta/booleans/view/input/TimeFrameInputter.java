@@ -19,19 +19,15 @@ public class TimeFrameInputter implements Inputable{
                 throw new InvalidIntInputException();
             }
         }catch (InvalidIntInputException e){
-            System.out.println(e.getMessage());
+            throw e;
+            /*System.out.println(e.getMessage());
             System.out.println("Re-enter a number: ");
-            input = getInputInt();
+            input = getInputInt();*/
         }
         return input;
     }
 
-    /* -> -> Deprecated
-     */
-    public int getTotalYearsAndMonths() {
-        System.out.println("Enter Years and months for simulation");
-        return  (getYears()*12) + getMonths();
-    }
+
 
     // Asks user for number of years and returns the months
     @Override
@@ -63,17 +59,14 @@ public class TimeFrameInputter implements Inputable{
         return input;
     }
 
-    public int getTotalMonths(int years, int months) {
-        System.out.println("Enter Years and months for simulation");
-        return  (years * 12) + months;
-    }
+
 
     private int getYears() {
         System.out.println("Enter the number of years: ");
         return getInputInt();
     }
 
-    private int getMonths() throws InvalidTimeFrameMonthException {
+    public int getMonths() throws InvalidTimeFrameMonthException {
         System.out.println("Enter the number of months: ");
         int input = 999;
         try{
@@ -82,8 +75,9 @@ public class TimeFrameInputter implements Inputable{
                 throw new InvalidTimeFrameMonthException();
             }
         }catch (InvalidTimeFrameMonthException e){
-            System.out.println(e.getMessage());
-            input = getMonths();
+            throw e;
+            /*System.out.println(e.getMessage());
+            input = getMonths();*/
         }
         return input;
 
