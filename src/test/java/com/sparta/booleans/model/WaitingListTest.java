@@ -1,5 +1,6 @@
 package com.sparta.booleans.model;
 
+import com.sparta.booleans.exceptions.TraineeNotFoundException;
 import com.sparta.booleans.model.trainee.Trainee;
 import com.sparta.booleans.model.waitinglist.WaitingList;
 import org.junit.jupiter.api.*;
@@ -8,6 +9,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
+import java.util.stream.Stream;
 
 public class WaitingListTest {
 
@@ -17,6 +19,7 @@ public class WaitingListTest {
         ArrayList<Trainee> trainees = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
             trainees.add(new Trainee(i, 0));
+            trainees.get(i).setCourseType(CourseType.JAVA);
         }
         return trainees.toArray(Trainee[]::new);
     }
@@ -92,5 +95,21 @@ public class WaitingListTest {
         Trainee[] trainees = getTraineeArray();
         waitingList.add(trainees);
         Assertions.assertArrayEquals(trainees, waitingList.toArrayList().toArray());
+    }
+
+    @Test
+    @DisplayName("Test if an exception is thrown when trying to retrieve a trainee " +
+            "of a specific type that isn't in the waiting list.")
+    void testExceptionThrown() {
+        Trainee[] trainees = getTraineeArray();
+        waitingList.add(trainees);
+        Assertions.assertThrows(TraineeNotFoundException.class, () -> waitingList.pollType(CourseType.DEVOPS));
+    }
+
+    @Test
+    @DisplayName("Test if an exception is thrown when trying to retrieve a trainee " +
+            "of a specific type from an empty waiting list.")
+    void testExceptionThrownWhenEmpty() {
+        Assertions.assertThrows(TraineeNotFoundException.class, () -> waitingList.pollType(CourseType.DEVOPS));
     }
 }
